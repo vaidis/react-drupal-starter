@@ -39,7 +39,7 @@ export const ARTICLES = (params) => {
         // return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.pager.offset}${LIMIT}${params.pager.limit}${PAGE}${params.pager.page}`
         return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.pager.offset}${PAGE}${params.pager.page}`
     }
-    console.log("API call ----------------------------")
+    // console.log("API call ----------------------------")
     // return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.pager.offset}${PAGE}${params.pager.page}`
     return `${BASE_API}${NODE}${INCLUDE}${LIMIT}${params.pager.limit}${OFFSET}${params.pager.offset}`
     // return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.pager.offset}${LIMIT}${params.pager.limit}${PAGE}${params.pager.page}`

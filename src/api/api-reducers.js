@@ -24,80 +24,62 @@ const initialStore = {
     loaded: false,
     type: 'article',
     links: '',
+    terms: '',
+    search: '',
     params: {
         // terms: ['fr', 'one two'],
         terms: '',
         search: '',
-        pager: {
-            offset: 0,
-            page: 0,
-            items: 0,
-            limit: 4,
-        },
-    }
+        // pager: {
+        //     offset: 0,
+        //     page: 0,
+        //     items: 0,
+        //     limit: 4,
+        // },
+    },
+    pager: {
+        first: 0,
+        last: 0,
+        next: 0,
+        prev: 0,
+        self: 0,
+        offset: 0,
+        page: 0,
+        items: 0,
+        limit: 0,
+    },
 }
 
 const reducer = (state = initialStore, action) => {
 
     switch (action.type) {
+
         case SET_LOADING_ON:
             return { ...state, loading: true };
         case SET_LOADING_OFF:
             return { ...state, loading: false };
+
 
         case SET_LOADED_TRUE:
             return { ...state, loaded: true };
         case SET_LOADED_FALSE:
             return { ...state, loaded: false };
 
+
         case SET_API_URL_PARAMS:
-            console.log('api-reducers.js action', action.payload)
+            console.log('api-reducers.js SET_API_URL_PARAMS', action.payload)
             return {
                 ...state,
                 params: action.payload
             };
 
-
         case SET_API_LINKS:
-            return { ...state, links: action.payload };
-
-        // case SET_PAGER:
-        //     return action.payload;
-
-        // case SET_PAGER_FIRST:
-        //     return { ...state, page: 0 };
-
-        case SET_PAGER_NEXT:
+            console.log('api-reducers.js SET_API_LINKS', action.payload)
+            const payload = action.payload
             return {
                 ...state,
-                params: {
-                    ...state.params,
-                    pager: {
-                        ...state.params.pager,
-                        offset: 3
-                    }
-                }
+                pager: payload
             };
-
-
-        // case SET_PAGER_NEXT:
-        //     return {
-        //         ...state,
-        //         params: {
-        //             ...state.params,
-        //             offset: {
-        //             ...state.params.offset, 
-        //             offset: 3
-        //             }
-        //         }
-        //     };
-
-        // case SET_PAGER_PREV:
-        //     return { ...state, page: state.page - 1 };
-
-        // case SET_PAGER_LAST:
-        //     return { ...state, page: action.payload };
-
 
 
         default:

@@ -27,30 +27,26 @@ const Articles = ({
   // dispatchSetPagerLast,
 }) => {
 
-  // get front-end url params fromr user
-  // set back-end url params for api.js
-  // const location = useLocation();
-  // let { path } = useParams();
+  // get the font-end url params
+  // into userParams object
+  // ready for dispatch if needed, from useEffect()
   let query = useQuery();
-
   const userParams = {
     terms: query.get('terms') || '',
     search: query.get('search') || '',
     pager: {
       offset: parseInt(query.get('offset')) || 0,
-      page: parseInt(query.get('page')) || 0,
+      page: parseInt(query.get('page')) || 1,
       items: parseInt(query.get('items')) || 0,
-      limit: parseInt(query.get('limit')) || 4,
+      limit: parseInt(query.get('limit')) || 2,
     },
   }
-  // console.log("Articles.js userParams", userParams)
-  // console.log("Articles.js path", path)
-  // console.log("Articles.js query", query.get('zzz'))
-  // console.log("Articles.js articles", articles)
+
+  let pagerLinksNextOffset = '';
 
   React.useEffect(() => {
 
-    // Compare Objects
+    // Compare Objects -----------------------------------
     // from:
     // https://dmitripavlutin.com/how-to-compare-objects-in-javascript/
     // https://github.com/panzerdp/dmitripavlutin.com/blob/master/content/posts/083-compare-objects/index.md
@@ -58,11 +54,9 @@ const Articles = ({
     function deepEqual(object1, object2) {
       const keys1 = Object.keys(object1);
       const keys2 = Object.keys(object2);
-
       if (keys1.length !== keys2.length) {
         return false;
       }
-
       for (const key of keys1) {
         const val1 = object1[key];
         const val2 = object2[key];
@@ -74,36 +68,60 @@ const Articles = ({
           return false;
         }
       }
-
       return true;
     }
-
     function isObject(object) {
       return object != null && typeof object === 'object';
     }
 
+    //
+    // if the url params has been change
+    // - update store.params
+    // - and get the new list of articles
+    //
     if (!deepEqual(userParams, params)) {
       dispatchSetApiUrlParams(userParams)
-      // console.log(" - 1 Articles.js > useEffect > userParams:", userParams)
-      // console.log(" - 2 Articles.js > useEffect > params:", params)
       dispatchGetArticles(userParams)
     }
   }, [
     dispatchSetApiUrlParams,
     dispatchGetArticles,
-    userParams
+    userParams,
+    pagerLinksNextOffset,
   ]);
 
+
+  // const pagerLinksNext = typeof links.next.href !== "undefined" ? links.next.href : ''
+  // const pagerLinksPrev = typeof links.prev.href !== "undefined" ? links.prev.href : ''
   return (
     <div>
-      <h1>Articles</h1>
-      <div>{JSON.stringify(userParams, 0, 2)}</div>
+      <Link to={"/"}><h1>Articles</h1></Link>
+
+      <div>userParams_____: {JSON.stringify(userParams, 0, 2)}</div>
       <br />
-      <div>{JSON.stringify(params, 0, 2)}</div>
-      <div>QUERY: {JSON.stringify(query, 0, 2)}</div>
-      <Link to={"/articles/?offset=0"}> [FIRST] </Link>
-      <Link to={"/articles/?offset=4"}> [NEXT] </Link>
-      <Link to={"/contact"}> [TEST] </Link>
+      <div>api.params_____: {JSON.stringify(params, 0, 2)}</div>
+      <br />
+      <div>api.pager______: {JSON.stringify(pager.next, 0, 2)}</div>
+      {/* 
+      <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
+      <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
+      <Link to={"/?offset=" + pager.prev}> [PREV] </Link>
+      <Link to={"/?offset=" + pager.next}> [NEXT] </Link>
+      <Link to={"/?offset=" + pager.last}> [LAST] </Link> */}
+
+
+      <button type="button" disabled={!pager.first}>
+        <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
+      </button>
+      <button type="button" disabled={!pager.prev}>
+        <Link to={"/?offset=" + pager.prev}> [PREV] </Link>
+      </button>
+      <button type="button" disabled={!pager.next}>
+        <Link to={"/?offset=" + pager.next}> [NEXT] </Link>
+      </button>
+      <button type="button" disabled={!pager.last}>
+        <Link to={"/?offset=" + pager.last}> [LAST] </Link>
+      </button>
 
       <div>
         {/* <button onClick={() => dispatchSetPagerFirst()}> [First] </button>
@@ -157,7 +175,8 @@ const Articles = ({
             })
           )
           : (
-            console.log("------------- LOADED FALSE -----------")
+            // console.log("------------- LOADED FALSE -----------")
+            null
           )
 
       }
@@ -176,10 +195,9 @@ const mapStateToProps = (state) => ({
   loading: state.api.loading,
   loaded: state.api.loaded,
   articles: state.articles,
-  params: state.api.params,
   links: state.api.links,
-  // total_pages: state.articles.pager.total_pages,
-  pager: state.params,
+  params: state.api.params,
+  pager: state.api.pager,
 })
 
 const mapDispatchToProps = dispatch => ({
