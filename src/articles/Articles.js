@@ -1,37 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom";
 import { useLocation, BrowserRouter as Router } from "react-router-dom";
 
 import { getArticles } from './articles-actions'
 import { setApiUrlParams } from '../api/api-actions'
-import { setPagerNext, setPagerPrev, setPagerFirst, setPagerLast } from '../api/api-actions'
+
+
+import { compareObjects } from '../utils/compareObjects'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 const Articles = ({
-  links,
   pager,
   loading,
   loaded,
   articles,
-  params,
+  storeParams,
   dispatchSetApiUrlParams,
   dispatchGetArticles,
-  dispatchSetPagerFirst,
-  dispatchSetPagerNext,
-  dispatchSetPagerPrev,
-  // dispatchSetPagerLast,
 }) => {
 
-  // get the font-end url params
-  // into userParams object
-  // ready for dispatch if needed, from useEffect()
+  //
+  // - get the font-end url params
+  // - into urlParams object
+  // ready for dispatch if needed, from useEffect() bellow
+  //
   let query = useQuery();
-  const userParams = {
+  const urlParams = {
     terms: query.get('terms') || '',
     search: query.get('search') || '',
     pager: {
@@ -42,7 +40,6 @@ const Articles = ({
     },
   }
 
-  let pagerLinksNextOffset = '';
 
   React.useEffect(() => {
 
@@ -79,36 +76,28 @@ const Articles = ({
     // - update store.params
     // - and get the new list of articles
     //
-    if (!deepEqual(userParams, params)) {
-      dispatchSetApiUrlParams(userParams)
-      dispatchGetArticles(userParams)
+
+
+    // if ( ! compareObjects(urlParams, storeParams)) {
+    if (!deepEqual(urlParams, storeParams)) {
+      dispatchSetApiUrlParams(urlParams)
+      dispatchGetArticles(urlParams)
     }
   }, [
     dispatchSetApiUrlParams,
     dispatchGetArticles,
-    userParams,
-    pagerLinksNextOffset,
+    urlParams,
   ]);
 
-
-  // const pagerLinksNext = typeof links.next.href !== "undefined" ? links.next.href : ''
-  // const pagerLinksPrev = typeof links.prev.href !== "undefined" ? links.prev.href : ''
   return (
     <div>
       <Link to={"/"}><h1>Articles</h1></Link>
 
-      <div>userParams_____: {JSON.stringify(userParams, 0, 2)}</div>
+      <div>urlParams_____: {JSON.stringify(urlParams, 0, 2)}</div>
       <br />
-      <div>api.params_____: {JSON.stringify(params, 0, 2)}</div>
+      <div>api.params_____: {JSON.stringify(storeParams, 0, 2)}</div>
       <br />
       <div>api.pager______: {JSON.stringify(pager.next, 0, 2)}</div>
-      {/* 
-      <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
-      <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
-      <Link to={"/?offset=" + pager.prev}> [PREV] </Link>
-      <Link to={"/?offset=" + pager.next}> [NEXT] </Link>
-      <Link to={"/?offset=" + pager.last}> [LAST] </Link> */}
-
 
       <button type="button" disabled={!pager.first}>
         <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
@@ -123,12 +112,6 @@ const Articles = ({
         <Link to={"/?offset=" + pager.last}> [LAST] </Link>
       </button>
 
-      <div>
-        {/* <button onClick={() => dispatchSetPagerFirst()}> [First] </button>
-        <button onClick={() => dispatchSetPagerPrev()}> [Prev] </button>
-        <button onClick={() => dispatchSetPagerNext()}> [Next] </button> */}
-        {/* <button onClick={() => dispatchSetPagerLast(total_pages - 1)}> [Last] </button> */}
-      </div>
 
       {
         loaded
@@ -136,7 +119,7 @@ const Articles = ({
             articles.map((item, i) => {
               // console.log("guery", query.getAll)
 
-              // get TERMS
+              // get TERMS field
               const terms = item.field_tags.map((term, i) => {
                 // console.log("TERM ------------------ ^ -----------------------")
                 // console.log("TERM id:", term.id)
@@ -152,7 +135,7 @@ const Articles = ({
                 )
               })
 
-              // get IMAGE
+              // get IMAGE field
               const imageobject = item.field_image.image_style_uri;
               let image = ''
               imageobject.forEach(function (item) {
@@ -161,7 +144,7 @@ const Articles = ({
                 }
               })
 
-
+              // render the article item
               return (
                 <div key={i} style={{ marginBottom: "20px" }}>
                   <h4 style={{ marginBottom: "0px" }}>{item.title}</h4>
@@ -169,8 +152,6 @@ const Articles = ({
                   {terms}
                 </div>
               )
-
-
 
             })
           )
@@ -181,12 +162,6 @@ const Articles = ({
 
       }
 
-
-
-      <div>
-        {/* {JSON.stringify(pager)} */}
-        {/* {JSON.stringify(total_pages)} */}
-      </div>
     </div>
   );
 }
@@ -196,15 +171,11 @@ const mapStateToProps = (state) => ({
   loaded: state.api.loaded,
   articles: state.articles,
   links: state.api.links,
-  params: state.api.params,
+  storeParams: state.api.params,
   pager: state.api.pager,
 })
 
 const mapDispatchToProps = dispatch => ({
-  dispatchSetPagerFirst: () => dispatch(setPagerFirst()),
-  dispatchSetPagerNext: () => dispatch(setPagerNext()),
-  dispatchSetPagerPrev: () => dispatch(setPagerPrev()),
-  // dispatchSetPagerLast: total_pages => dispatch(setPagerLast((total_pages))),
   dispatchSetApiUrlParams: params => dispatch(setApiUrlParams(params)),
   dispatchGetArticles: params => dispatch(getArticles(params)),
 })

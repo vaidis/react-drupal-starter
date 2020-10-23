@@ -9,15 +9,6 @@ import {
     SET_API_LINKS,
 } from '../common/constants'
 
-import {
-    SET_PAGER,
-    GET_PAGER,
-    SET_PAGER_FIRST,
-    SET_PAGER_PREV,
-    SET_PAGER_NEXT,
-    SET_PAGER_LAST,
-} from '../common/constants'
-
 
 const initialStore = {
     loading: false,
