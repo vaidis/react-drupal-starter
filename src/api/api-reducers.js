@@ -13,31 +13,15 @@ import {
 const initialStore = {
     loading: false,
     loaded: false,
-    type: 'article',
-    links: '',
     terms: '',
     search: '',
-    params: {
-        // terms: ['fr', 'one two'],
-        terms: '',
-        search: '',
-        // pager: {
-        //     offset: 0,
-        //     page: 0,
-        //     items: 0,
-        //     limit: 4,
-        // },
-    },
+    urlParams: '',
     pager: {
         first: 0,
         last: 0,
         next: 0,
         prev: 0,
         self: 0,
-        offset: 0,
-        page: 0,
-        items: 0,
-        limit: 0,
     },
 }
 
@@ -61,7 +45,7 @@ const reducer = (state = initialStore, action) => {
             console.log('api-reducers.js SET_API_URL_PARAMS', action.payload)
             return {
                 ...state,
-                params: action.payload
+                urlParams: action.payload
             };
 
         case SET_API_LINKS:

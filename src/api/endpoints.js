@@ -36,11 +36,8 @@ export const ARTICLES = (params) => {
             FILTERS = FILTERS + FILTER(term)
             )
         })
-        // return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.pager.offset}${LIMIT}${params.pager.limit}${PAGE}${params.pager.page}`
-        return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.pager.offset}${PAGE}${params.pager.page}`
+        return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.offset}${OFFSET}${params.offset}`
     }
     // console.log("API call ----------------------------")
-    // return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.pager.offset}${PAGE}${params.pager.page}`
-    return `${BASE_API}${NODE}${INCLUDE}${LIMIT}${params.pager.limit}${OFFSET}${params.pager.offset}`
-    // return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.pager.offset}${LIMIT}${params.pager.limit}${PAGE}${params.pager.page}`
+    return `${BASE_API}${NODE}${INCLUDE}${LIMIT}${params.limit}${OFFSET}${params.offset}`
 }

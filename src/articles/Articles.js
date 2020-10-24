@@ -9,6 +9,7 @@ import { setApiUrlParams } from '../api/api-actions'
 
 import { compareObjects } from '../utils/compareObjects'
 
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -26,60 +27,29 @@ const Articles = ({
   //
   // - get the font-end url params
   // - into urlParams object
-  // ready for dispatch if needed, from useEffect() bellow
+  // ready for dispatch if needed, in useEffect() bellow
   //
   let query = useQuery();
   const urlParams = {
     terms: query.get('terms') || '',
     search: query.get('search') || '',
-    pager: {
-      offset: parseInt(query.get('offset')) || 0,
-      page: parseInt(query.get('page')) || 1,
-      items: parseInt(query.get('items')) || 0,
-      limit: parseInt(query.get('limit')) || 2,
-    },
+    offset: parseInt(query.get('offset')) || 0,
+    page: parseInt(query.get('page')) || 1,
+    items: parseInt(query.get('items')) || 0,
+    limit: parseInt(query.get('limit')) || 2,
   }
 
-
   React.useEffect(() => {
-
-    // Compare Objects -----------------------------------
-    // from:
-    // https://dmitripavlutin.com/how-to-compare-objects-in-javascript/
-    // https://github.com/panzerdp/dmitripavlutin.com/blob/master/content/posts/083-compare-objects/index.md
     //
-    function deepEqual(object1, object2) {
-      const keys1 = Object.keys(object1);
-      const keys2 = Object.keys(object2);
-      if (keys1.length !== keys2.length) {
-        return false;
-      }
-      for (const key of keys1) {
-        const val1 = object1[key];
-        const val2 = object2[key];
-        const areObjects = isObject(val1) && isObject(val2);
-        if (
-          areObjects && !deepEqual(val1, val2) ||
-          !areObjects && val1 !== val2
-        ) {
-          return false;
-        }
-      }
-      return true;
-    }
-    function isObject(object) {
-      return object != null && typeof object === 'object';
-    }
-
-    //
-    // if the url params has been change
-    // - update store.params
+    // IF the font-end url params has been change
+    // - update the store.params
     // - and get the new list of articles
     //
-
-
-    // if ( ! compareObjects(urlParams, storeParams)) {
-    if (!deepEqual(urlParams, storeParams)) {
+    console.log("-----------------------------------------")
+    console.log("urlParams", urlParams)
+    console.log("storeParams", storeParams)
+    console.log("-----------------------------------------")
+    if (!compareObjects(urlParams, storeParams)) {
       dispatchSetApiUrlParams(urlParams)
       dispatchGetArticles(urlParams)
     }
@@ -92,12 +62,6 @@ const Articles = ({
   return (
     <div>
       <Link to={"/"}><h1>Articles</h1></Link>
-
-      <div>urlParams_____: {JSON.stringify(urlParams, 0, 2)}</div>
-      <br />
-      <div>api.params_____: {JSON.stringify(storeParams, 0, 2)}</div>
-      <br />
-      <div>api.pager______: {JSON.stringify(pager.next, 0, 2)}</div>
 
       <button type="button" disabled={!pager.first}>
         <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
@@ -169,9 +133,8 @@ const Articles = ({
 const mapStateToProps = (state) => ({
   loading: state.api.loading,
   loaded: state.api.loaded,
-  articles: state.articles,
-  links: state.api.links,
-  storeParams: state.api.params,
+  articles: state.articles.data,
+  storeParams: state.api.urlParams,
   pager: state.api.pager,
 })
 

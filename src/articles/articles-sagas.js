@@ -55,7 +55,7 @@ function* getArticlesWorker({ payload }) {
         // const state = yield select();
         const response = yield call(api.get, endpoint.ARTICLES(payload));
         // console.log("SAGAS getArticlesWorker response", response);
-        yield put({ type: SET_ARTICLES, payload: response.data.data });
+        yield put({ type: SET_ARTICLES, payload: response.data });
         // console.log("SAGAS getArticlesWorker apiLinks" , response.data.links);
 
         const pagerObject = createPagerObject((response.data.links))
