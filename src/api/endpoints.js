@@ -29,15 +29,16 @@ const FILTER = (term) => `&filter[taxonomy_term--tags][condition][path]=field_ta
 
 export const ARTICLES = (params) => {
     if (params.terms !== "") {
-        console.log("API call with terms ----------------------------: ", params.terms)
+        console.log("API call with terms ----------------------------: ", params.terms) 
         let FILTERS = ''
-        params.terms.map((term) => {
-          return (
-            FILTERS = FILTERS + FILTER(term)
+        params.terms.split(',').map((term) => {
+            return (
+                FILTERS = FILTERS + FILTER(term)
             )
         })
-        return `${BASE_API}${NODE}${INCLUDE}${SORT}${FILTERS}${OFFSET}${params.offset}${OFFSET}${params.offset}`
+
+        return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.offset}${LIMIT}${params.limit}${FILTERS}`
     }
-    // console.log("API call ----------------------------")
+    console.log("API call ----------------------------", params)
     return `${BASE_API}${NODE}${INCLUDE}${LIMIT}${params.limit}${OFFSET}${params.offset}`
 }
