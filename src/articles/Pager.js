@@ -2,32 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 
+function PagerLink({ to, title, urlParams }) {
+    if (typeof (urlParams.terms) !== 'undefined') {
+        return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>{title}{to}</Link>
+    }
+    return <Link to={"/?offset=" + to}>{title}{to}</Link>
+}
+
 const Pager = ({
     pager,
     urlParams,
 }) => {
-
-    function getTerms() {
-        if (urlParams !== 'undefined') {
-            if (urlParams.terms !== '') {
-                console.log("Pager.js  urlParams", urlParams.terms)
-                const terms = urlParams.terms
-                return ("&terms=" + terms)
-            }
-        }
-    }
-
+    // console.log("Pager.js  pager ================", pager)
     return (
         <div>
             <h4>Pager</h4>
             <button type="button" disabled={!pager.first}>
                 {
                     pager.first ? (
-                        <Link to={
-                            urlParams.terms
-                            ? `"/?offset=" + pager.first + getTerms()`
-                            : `"/?offset=" + pager.first`
-                        }> [FIRST] </Link>
+                        <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
                     ) : ('[FIRST]')
                 }
             </button>
@@ -35,7 +28,7 @@ const Pager = ({
             <button type="button" disabled={!pager.prev}>
                 {
                     pager.prev ? (
-                        <Link to={"/?offset=" + pager.prev + getTerms()}> [PREV] </Link>
+                        <Link to={"/?offset=" + pager.prev}> [PREV] </Link>
                     ) : ('[PREV]')
                 }
             </button>
@@ -43,13 +36,7 @@ const Pager = ({
             <button type="button" disabled={!pager.next}>
                 {
                     pager.next ? (
-                        <Link to={
-                            urlParams.terms
-                            ? "/?offset=" + pager.next + getTerms()
-                            : "/?offset=" + pager.next
-                        }> [NEXT] </Link>
-
-
+                        <PagerLink to={pager.next} title={'[NEXT]'} urlParams={urlParams} />
                     ) : ('[NEXT]')
                 }
             </button>
@@ -57,7 +44,7 @@ const Pager = ({
             <button type="button" disabled={!pager.last}>
                 {
                     pager.last ? (
-                        <Link to={"/?offset=" + pager.lastv + getTerms()}> [LAST] </Link>
+                        <Link to={"/?offset=" + pager.last}> [LAST] </Link>
                     ) : ('[END]')
                 }
             </button>
