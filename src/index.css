@@ -26,7 +26,11 @@ button[disabled] {
 
 button {
   background: #505050;
-  color: black;
+  color: #ffffff;
   margin: 5px;
   padding: 5px;
+}
+
+#header {
+  background: #222222;
 }

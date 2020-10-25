@@ -25,7 +25,6 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case USER_SET_DATA:
-            // console.log("reducer.js USER_SET_DATA", action.payload.current_user);
             return {
                 ...state,
                 current_user: action.payload.current_user,
@@ -34,14 +33,12 @@ const reducer = (state = initialState, action) => {
             };
 
         case USER_SET_STATUS:
-            // console.log("reducer.js USER_SET_STATUS");
             return {
                 ...state,
                 status: action.payload
             };
 
         case USER_LOGOUT_SUCCESS:
-            // console.log("reducer.js USER_LOGOUT_SUCCESS");
             return initialState;
 
         default:

@@ -5,8 +5,8 @@ import UserProfile from './UserProfile'
 
 const UserLogin = ({ dispatchUserLoginRequest }) => {
 
-    const [name , setName] = React.useState("admin");
-    const [pass , setPass] = React.useState("1234");
+    const [name, setName] = React.useState("admin");
+    const [pass, setPass] = React.useState("1234");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,20 +15,21 @@ const UserLogin = ({ dispatchUserLoginRequest }) => {
 
     return (
         <div>
-            <UserProfile />
+            <h2>User Login</h2>
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     name="name"
                     placeholder="Username"
-                    onChange={ (e) => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                     value={name}
                 />
                 <input
                     type="password"
                     name="pass"
                     placeholder="Password"
-                    onChange={ (e) => setPass(e.target.value)}
+                    onChange={(e) => setPass(e.target.value)}
                     value={pass}
                 />
                 <input
@@ -37,6 +38,7 @@ const UserLogin = ({ dispatchUserLoginRequest }) => {
                     value="Submit"
                 />
             </form>
+            <UserProfile />
         </div>
     );
 }

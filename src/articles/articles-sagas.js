@@ -1,5 +1,4 @@
 import {
-    select,
     all,
     takeLatest,
     call,
@@ -47,6 +46,7 @@ function* getArticlesWorker({ payload }) {
 
         const pagerObject = createPagerObject((response.data.links))
         yield put({ type: SET_API_PAGER_LINKS, payload: pagerObject });
+
         yield put({ type: SET_LOADED_TRUE })
     } catch (error) {
         console.log("SAGAS getArticlesWorker error", error);

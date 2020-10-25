@@ -11,8 +11,9 @@ export const STATUS = `${BASE}/user/login_status?_format=json`
 export const LOGOUT = `${BASE}/user/logout?_format=json`
 
 // ARTICLE
-export const ALIAS2UUID = (alias) => `${BASE}/router/translate-path?path=/article/${alias}`
-export const ARTICLE = (uuid) => `${BASE_API}/node/article/${uuid}?include=field_image,field_tags`
+// export const ALIAS2UUID = (alias) => `${BASE}/router/translate-path?path=/article/${alias}`
+// export const ARTICLE = (uuid) => `${BASE_API}/node/article/${uuid}?include=field_image,field_tags`
+export const ARTICLE = (path) => `${BASE_API}/node/article?include=field_image,field_tags,uid&filter[field_path][value]=${path}`
 
 // ARTICLES
 const NODE = '/node/article'
@@ -31,7 +32,6 @@ export const ARTICLES = (params) => {
                 FILTERS = FILTERS + FILTER(term)
             )
         })
-
         return `${BASE_API}${NODE}${INCLUDE}${SORT}${OFFSET}${params.offset}${LIMIT}${params.limit}${FILTERS}`
     }
     console.log("API endpoints.ARTICLES params:", params)

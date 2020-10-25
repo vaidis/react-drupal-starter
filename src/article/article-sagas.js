@@ -19,9 +19,10 @@ function* getArticleWorker({ payload }) {
     console.log("SAGAS getArticleWorker");
     yield put({ type: SET_LOADING_ON })
     try {
-        const response = yield call(api.get, endpoint.ALIAS2UUID(payload));
-        console.log("SAGAS getArticleWorker uuid", response.data.entity.uuid);
-        const article = yield call(api.get, endpoint.ARTICLE(response.data.entity.uuid));
+        // const response = yield call(api.get, endpoint.ALIAS2UUID(payload));
+        // console.log("SAGAS getArticleWorker uuid", response.data.entity.uuid);
+        const article = yield call(api.get, endpoint.ARTICLE(payload));
+
         console.log("SAGAS getArticleWorker article", article);
         yield put({ type: SET_ARTICLE, payload: article.data });
     } catch (error) {

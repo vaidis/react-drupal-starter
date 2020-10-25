@@ -2,15 +2,17 @@ import React from 'react';
 import { userLogoutRequest } from './user-actions'
 import { connect } from 'react-redux';
 
-const UserLogout = ({ dispatchUserLogoutRequest }) => {
+const UserLogout = ({ uid, dispatchUserLogoutRequest }) => {
     return (
         <div>
-            <button
-                type="button"
-                onClick={ () => dispatchUserLogoutRequest()}
-            >
-                Logout
-            </button>
+            { uid !== 0 && (
+                <button
+                    type="button"
+                    onClick={() => dispatchUserLogoutRequest()}
+                >
+                    Logout
+                </button>
+            )}
         </div>
     );
 }
@@ -18,5 +20,8 @@ const UserLogout = ({ dispatchUserLogoutRequest }) => {
 const mapDispatchToProps = dispatch => ({
     dispatchUserLogoutRequest: () => dispatch(userLogoutRequest()),
 })
+const mapStateToProps = (state) => ({
+    uid: state.user.current_user.uid,
+})
 
-export default connect(null, mapDispatchToProps)(UserLogout);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogout);

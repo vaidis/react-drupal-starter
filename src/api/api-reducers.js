@@ -7,7 +7,6 @@ import {
     SET_API_PAGER_LINKS,
 } from '../common/constants'
 
-
 const initialStore = {
     loading: false,
     loaded: false,

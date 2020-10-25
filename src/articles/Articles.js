@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
-import { useLocation, BrowserRouter as Router } from "react-router-dom";
+import { useLocation, BrowserRouter } from "react-router-dom";
 
 import { getArticles } from './articles-actions'
 import { setApiUrlParams } from '../api/api-actions'
 import { compareObjects } from '../utils/compareObjects'
 
-import Pager from './Pager'
+import Pager from '../pager/Pager'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -25,7 +25,7 @@ const Articles = ({
   //
   // - get the font-end url params if any
   // - into urlParams object
-  // ready for dispatch if needed, in useEffect() bellow
+  //   ready for dispatch if needed, in useEffect() bellow
   //
   let query = useQuery();
   const urlParams = {
@@ -39,8 +39,8 @@ const Articles = ({
 
   React.useEffect(() => {
     //
-    // IF the font-end url params has been change
-    // - update the store.params
+    // If the font-end URL params has been change
+    // - update the store.api.urlParams
     // - and get the new list of articles
     //
     if (!compareObjects(urlParams, storeParams)) {
@@ -56,6 +56,7 @@ const Articles = ({
   return (
     <div>
       <Link to={"/"}><h1>Articles</h1></Link>
+      <p>{urlParams.terms !== '' && "with terms " + urlParams.terms}</p>
 
       {
         loaded
@@ -66,7 +67,7 @@ const Articles = ({
               const terms = item.field_tags.map((term, i) => {
                 return (
                   <div key={i}>
-                    <Link to={"/?terms="+term.name}>{term.name}</Link>
+                    <Link to={"/?terms=" + term.name}>{term.name}</Link>
                   </div>
                 )
               })
@@ -83,8 +84,11 @@ const Articles = ({
               // render the article item
               return (
                 <div key={i} style={{ marginBottom: "20px" }}>
-                  <h4 style={{ marginBottom: "0px" }}>{item.title}</h4>
-                  <img src={image} alt="Girl in a jacket"></img>
+                  <Link to={item.path.alias}>
+
+                    <h4 style={{ marginBottom: "0px" }}>{item.title}</h4>
+                    <img src={image} alt="Girl in a jacket"></img>
+                  </Link>
                   {terms}
                 </div>
               )

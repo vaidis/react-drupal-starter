@@ -9,6 +9,7 @@ const UserLogin = ({ user }) => {
         <div>
             Hello <Link to="/user/profile">{user.name}</Link>
             <UserLogout />
+
         </div>
     );
 }
