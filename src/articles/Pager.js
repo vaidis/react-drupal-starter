@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
+import PagerLink from './PagerLink'
 
-function PagerLink({ to, title, urlParams }) {
-    if (typeof (urlParams.terms) !== 'undefined') {
-        if (urlParams.terms !== '') {
-            return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>{title}{to}</Link>
-        }
-    }
-    return <Link to={"/?offset=" + to}>{title}{to}</Link>
-}
+// function PagerLink({ to, title, urlParams }) {
+//     if (typeof (urlParams.terms) !== 'undefined') {
+//         if (urlParams.terms !== '') {
+//             return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>
+//                 {title + " : " + to}
+//             </Link>
+//         }
+//     }
+//     return <Link to={"/?offset=" + to}>{title + " : " + to}</Link>
+// }
 
 const Pager = ({
     pager,
     urlParams,
 }) => {
-    // console.log("Pager.js  pager ================", pager)
     return (
         <div>
             <h4>Pager</h4>
@@ -46,7 +48,7 @@ const Pager = ({
             <button type="button" disabled={!pager.last}>
                 {
                     pager.last ? (
-                        <Link to={"/?offset=" + pager.last}> [LAST] </Link>
+                        <PagerLink to={pager.last} title={'LAST'} urlParams={urlParams} />
                     ) : ('[END]')
                 }
             </button>
