@@ -21,16 +21,6 @@ function App() {
                 <Route path="/user/profile"><UserProfile /></Route>
                 <Route path="/contact"><Contact /></Route>
             </Switch>
-            {/* <Header /> */}
-            {/* <Switch>
-                <Route exact path="/:path?" component={Articles} />
-                <Route exact path="/articles:query?" component={Articles} />
-                <Route path="/article/:path" component={Article} />
-                <Route path="/user/login" component={UserLogin} />
-                <Route path="/user/register" component={UserRegister} />
-                <Route path="/user/profile" component={UserProfile} />
-                <Route path="/contact" component={Contact} />
-            </Switch> */}
         </div>
     );
 }

@@ -1,18 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
 import PagerLink from './PagerLink'
-
-// function PagerLink({ to, title, urlParams }) {
-//     if (typeof (urlParams.terms) !== 'undefined') {
-//         if (urlParams.terms !== '') {
-//             return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>
-//                 {title + " : " + to}
-//             </Link>
-//         }
-//     }
-//     return <Link to={"/?offset=" + to}>{title + " : " + to}</Link>
-// }
 
 const Pager = ({
     pager,
@@ -20,7 +8,6 @@ const Pager = ({
 }) => {
     return (
         <div>
-            <h4>Pager</h4>
             <button type="button" disabled={!pager.first}>
                 {
                     pager.first ? (
@@ -28,7 +15,6 @@ const Pager = ({
                     ) : ('[FIRST]')
                 }
             </button>
-
             <button type="button" disabled={!pager.prev}>
                 {
                     pager.prev ? (
@@ -36,7 +22,6 @@ const Pager = ({
                     ) : ('[PREV]')
                 }
             </button>
-
             <button type="button" disabled={!pager.next}>
                 {
                     pager.next ? (
@@ -44,7 +29,6 @@ const Pager = ({
                     ) : ('[NEXT]')
                 }
             </button>
-
             <button type="button" disabled={!pager.last}>
                 {
                     pager.last ? (
@@ -52,15 +36,11 @@ const Pager = ({
                     ) : ('[END]')
                 }
             </button>
-
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.api.loading,
-    loaded: state.api.loaded,
-    articles: state.articles.data,
     urlParams: state.api.urlParams,
     pager: state.api.pager,
 })

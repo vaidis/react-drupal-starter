@@ -1,11 +1,9 @@
-import { SET_ARTICLES, SET_API_LINKS } from '../common/constants'
-export const initialArticles = ''
+import { SET_ARTICLES } from '../common/constants'
 
-const reducer = (state = initialArticles, action) => {
+const reducer = (state = '', action) => {
     switch (action.type) {
 
         case SET_ARTICLES:
-            console.log("REDUCER SET_ARTICLES", action)
             return action.payload;
 
         default:

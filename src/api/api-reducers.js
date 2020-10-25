@@ -1,12 +1,10 @@
-import { act } from 'react-dom/test-utils';
 import {
     SET_LOADING_ON,
     SET_LOADING_OFF,
     SET_LOADED_TRUE,
     SET_LOADED_FALSE,
     SET_API_URL_PARAMS,
-    GET_API_URL_PARAMS,
-    SET_API_LINKS,
+    SET_API_PAGER_LINKS,
 } from '../common/constants'
 
 
@@ -42,18 +40,15 @@ const reducer = (state = initialStore, action) => {
 
 
         case SET_API_URL_PARAMS:
-            // console.log('api-reducers.js SET_API_URL_PARAMS', action.payload)
             return {
                 ...state,
                 urlParams: action.payload
             };
 
-        case SET_API_LINKS:
-            // console.log('api-reducers.js SET_API_LINKS', action.payload)
-            const payload = action.payload
+        case SET_API_PAGER_LINKS:
             return {
                 ...state,
-                pager: payload
+                pager: action.payload
             };
 
 

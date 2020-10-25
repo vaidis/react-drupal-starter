@@ -4,8 +4,7 @@ export const SET_LOADING_OFF = 'SET_LOADING_OFF'
 export const SET_LOADED_TRUE = 'SET_LOADED_TRUE'
 export const SET_LOADED_FALSE = 'SET_LOADED_FALSE'
 export const SET_API_URL_PARAMS = 'SET_API_URL_PARAMS'
-export const GET_API_URL_PARAMS = 'GET_API_URL_PARAMS'
-export const SET_API_LINKS = 'SET_API_LINKS'
+export const SET_API_PAGER_LINKS = 'SET_API_PAGER_LINKS'
 
 // ---------------------------------------------- USER
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
@@ -33,14 +32,3 @@ export const SET_ARTICLE = 'SET_ARTICLE'
 // ---------------------------------------------- TERM
 export const GET_TERMS = 'GET_TERMS'
 export const SET_TERMS = 'SET_TERMS'
-
-// ---------------------------------------------- PAGER
-export const GET_PAGER = 'GET_PAGER'
-export const SET_PAGER = 'SET_PAGER'
-export const SET_PAGER_PAGE = 'SET_PAGER_PAGE'
-export const SET_PAGER_ITEMS = 'SET_PAGER_ITEMS'
-export const SET_PAGER_OFFSET = 'SET_PAGER_OFFSET'
-export const SET_PAGER_NEXT = 'SET_PAGER_NEXT'
-export const SET_PAGER_PREV = 'SET_PAGER_PREV'
-export const SET_PAGER_FIRST = 'SET_PAGER_FIRST'
-export const SET_PAGER_LAST = 'SET_PAGER_LAST'
