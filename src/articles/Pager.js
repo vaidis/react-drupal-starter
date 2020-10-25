@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 
 function PagerLink({ to, title, urlParams }) {
     if (typeof (urlParams.terms) !== 'undefined') {
-        return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>{title}{to}</Link>
+        if (urlParams.terms !== '') {
+            return <Link to={"/?offset=" + to + "&terms=" + urlParams.terms}>{title}{to}</Link>
+        }
     }
     return <Link to={"/?offset=" + to}>{title}{to}</Link>
 }
@@ -20,7 +22,7 @@ const Pager = ({
             <button type="button" disabled={!pager.first}>
                 {
                     pager.first ? (
-                        <Link to={"/?offset=" + pager.first}> [FIRST] </Link>
+                        <PagerLink to={pager.first} title={'FIRST'} urlParams={urlParams} />
                     ) : ('[FIRST]')
                 }
             </button>
@@ -28,7 +30,7 @@ const Pager = ({
             <button type="button" disabled={!pager.prev}>
                 {
                     pager.prev ? (
-                        <Link to={"/?offset=" + pager.prev}> [PREV] </Link>
+                        <PagerLink to={pager.prev} title={'PREV'} urlParams={urlParams} />
                     ) : ('[PREV]')
                 }
             </button>
@@ -36,7 +38,7 @@ const Pager = ({
             <button type="button" disabled={!pager.next}>
                 {
                     pager.next ? (
-                        <PagerLink to={pager.next} title={'[NEXT]'} urlParams={urlParams} />
+                        <PagerLink to={pager.next} title={'NEXT'} urlParams={urlParams} />
                     ) : ('[NEXT]')
                 }
             </button>
