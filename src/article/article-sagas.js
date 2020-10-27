@@ -43,7 +43,7 @@ function* postArticleWorker({ payload }) {
     yield put({ type: SET_LOADED_FALSE })
 
     try {
-        const response = yield call(api.post, endpoint.ARTICLE_POST(payload));
+        const response = yield call(api.post, endpoint.ARTICLE_POST, payload);
         console.log("article-sagas.js postArticleWorker response", response);
 
         yield put({ type: SET_LOADED_TRUE })
@@ -59,6 +59,5 @@ export default function* root() {
     yield all([
         takeLatest(GET_ARTICLE, getArticleWorker),
         takeLatest(POST_ARTICLE, postArticleWorker)
-        
     ]);
 }
