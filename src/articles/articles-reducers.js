@@ -4,6 +4,7 @@ const reducer = (state = '', action) => {
     switch (action.type) {
 
         case SET_ARTICLES:
+            console.log("SET_ARTICLES", action)
             return action.payload;
 
         default:

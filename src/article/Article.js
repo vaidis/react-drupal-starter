@@ -1,58 +1,65 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import { getArticle } from './article-actions'
 import * as endpoint from '../api/endpoints'
 
-const Article = ({ loading, article, dispatchGetArticle }) => {
+import TermLink from '../common/TermLink'
 
-    let { path } = useParams();
-    console.log("ARTICLE path", path)
+const Article = ({
+  loaded,
+  loading,
+  article,
+  title,
+  dispatchGetArticle
+}) => {
 
-    React.useEffect(() => {
-        dispatchGetArticle(path)
-    }, [
-        dispatchGetArticle,
-        path
-    ]);
+  let { path } = useParams();
 
-    // const image = <img
-    //     src={endpoint.BASE + "/" + article.field_image.uri.url}
-    //     alt={article.title}
-    // />
+  React.useEffect(() => {
+    dispatchGetArticle(path)
+  }, [
+    dispatchGetArticle,
+    path
+  ]);
 
-    // const tags = article.field_tags.map((tag, i) => {
-    //     return (
-    //         <span key={i}>
-    //             <Link to={tag.path.alias}>{tag.name}</Link>
-    //         </span>
-    //     )
-    // })
-
-    return (
+  return (
+    <div>
+      {article &&
         <div>
-            <h2>Article</h2>
-            {/* {!loading &&
-                <div>
-                    <h1>{article.title}</h1>
-                    <div>{article.created}</div>
-                    <div>{tags} </div>
-                    <div>{image}</div>
-                    <div>{article.body.value}</div>
-                </div>
-            } */}
+          <h1>{article.data[0].title}</h1>
+          <div>{article.data[0].created}</div>
+          <div>
+            <img
+              src={endpoint.BASE + "/" + article.data[0].field_image.uri.url}
+              alt={title}
+            />
+          </div>
+          <div>{article.data[0].body.value.substring(0, 255)}</div>
+          <div>{
+            article.data[0].field_tags.map((tag, i) => {
+              return (
+                <span key={i}>
+                  <TermLink tag={tag} />
+                </span>
+              )
+            })
+          }</div>
         </div>
-    );
+      }
+    </div>
+  );
 }
 
 const mapDispatchToProps = dispatch => ({
-    dispatchGetArticle: path => dispatch(getArticle(path)),
+  dispatchGetArticle: path => dispatch(getArticle(path)),
 })
 
 const mapStateToProps = (state) => ({
-    article: state.article,
-    loading: state.api.loading,
+  loaded: state.api.loaded,
+  loading: state.api.loading,
+  article: state.article,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

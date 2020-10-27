@@ -8,7 +8,6 @@ import {
     USER_LOGOUT_SUCCESS,
     // USER_LOGOUT_FAILURE,
     // USER_GET_STATUS,
-    USER_SET_STATUS
 } from '../common/constants'
 
 const initialState = {
@@ -25,6 +24,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case USER_SET_DATA:
+            console.log("USER_SET_DATA", action)
             return {
                 ...state,
                 current_user: action.payload.current_user,
@@ -32,13 +32,8 @@ const reducer = (state = initialState, action) => {
                 logout_token: action.payload.logout_token,
             };
 
-        case USER_SET_STATUS:
-            return {
-                ...state,
-                status: action.payload
-            };
-
         case USER_LOGOUT_SUCCESS:
+            console.log("USER_LOGOUT_SUCCESS")
             return initialState;
 
         default:

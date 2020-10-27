@@ -14,9 +14,6 @@ export const USER_LOGIN_FAILURE  = 'USER_LOGIN_FAILURE'
 export const USER_GET_DATA = 'USER_GET_DATA'
 export const USER_SET_DATA = 'USER_SET_DATA'
 
-export const USER_GET_STATUS = 'USER_GET_STATUS'
-export const USER_SET_STATUS = 'USER_SET_STATUS'
-
 export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST'
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS'
 export const USER_LOGOUT_FAILURE  = 'USER_LOGOUT_FAILURE'
@@ -28,6 +25,7 @@ export const SET_ARTICLES = 'SET_ARTICLES'
 // ---------------------------------------------- ARTICLE
 export const GET_ARTICLE = 'GET_ARTICLE'
 export const SET_ARTICLE = 'SET_ARTICLE'
+export const POST_ARTICLE = 'POST_ARTICLE'
 
 // ---------------------------------------------- TERM
 export const GET_TERMS = 'GET_TERMS'

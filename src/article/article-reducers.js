@@ -2,14 +2,12 @@ import {
     SET_ARTICLE,
 } from '../common/constants'
 
-
-const reducer = (state = {
-    data: '',
-}, action) => {
+const reducer = (state = '', action) => {
     switch (action.type) {
 
         case SET_ARTICLE:
-            return action.payload.data;
+            console.log("SET_ARTICLE")
+            return action.payload;
 
         default:
             return state;

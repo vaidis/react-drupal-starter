@@ -7,6 +7,12 @@ import IndexSagas from '../index-sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 const persistedState = loadState();
+
+//
+// Redux DevTools
+// https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools
+// https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+//
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(

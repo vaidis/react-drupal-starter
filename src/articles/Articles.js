@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
-import { useLocation, BrowserRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { getArticles } from './articles-actions'
 import { setApiUrlParams } from '../api/api-actions'
@@ -51,12 +51,12 @@ const Articles = ({
     dispatchSetApiUrlParams,
     dispatchGetArticles,
     urlParams,
+    storeParams,
   ]);
 
   return (
     <div>
-      <Link to={"/"}><h1>Articles</h1></Link>
-      <p>{urlParams.terms !== '' && "with terms " + urlParams.terms}</p>
+      <p>{urlParams.terms !== '' && "articles with terms: " + urlParams.terms}</p>
 
       {
         loaded
@@ -96,7 +96,7 @@ const Articles = ({
             })
           )
           : (
-            // console.log("------------- LOADED FALSE -----------")
+            // console.log("------------- NOT LOADED WET -----------")
             null
           )
 

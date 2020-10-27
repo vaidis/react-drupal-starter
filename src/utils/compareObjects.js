@@ -19,8 +19,8 @@ export function compareObjects(object1, object2) {
         const val2 = object2[key];
         const areObjects = isObject(val1) && isObject(val2);
         if (
-            areObjects && !compareObjects(val1, val2) ||
-            !areObjects && val1 !== val2
+            (areObjects && !compareObjects(val1, val2)) ||
+            (!areObjects && val1 !== val2)
         ) {
             return false;
         }

@@ -34,12 +34,14 @@ const createPagerObject = (links) => {
                 pager[item] = params.get('page[offset]');
             }
         })
-        return pager
+    return pager
 }
 
 function* getArticlesWorker({ payload }) {
+
     yield put({ type: SET_LOADING_ON })
-    console.log("SAGAS getArticlesWorker payload", payload);
+    yield put({ type: SET_LOADED_FALSE })
+
     try {
         const response = yield call(api.get, endpoint.ARTICLES(payload));
         yield put({ type: SET_ARTICLES, payload: response.data });
@@ -49,8 +51,9 @@ function* getArticlesWorker({ payload }) {
 
         yield put({ type: SET_LOADED_TRUE })
     } catch (error) {
-        console.log("SAGAS getArticlesWorker error", error);
+        console.log("articles-sagas.js getArticlesWorker error", error);
         yield put({ type: SET_LOADED_FALSE })
+
     } finally {
         yield put({ type: SET_LOADING_OFF })
     }

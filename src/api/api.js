@@ -17,7 +17,7 @@ export const getCsrfToken = async () => {
 
 export const api = {
     get: async function get(url) {
-        console.log("API get(url): ", decodeURI(url))
+        console.log("api.js > get > url: ", decodeURI(url))
         return axios.get(url, {
             headers: {
                 "Content-Type": "application/hal+json",
@@ -56,8 +56,29 @@ export const api = {
                 });
         }
     },
+    post: async function post(url, data) {
+
+        const csrf_token = await getCsrfToken()
+
+        const options = {
+            url: url,
+            method: 'post',
+            headers: {
+                "Content-Type": "application/vnd.api+json",
+                "X-CSRF-Token": csrf_token,
+            },
+            withCredentials: true,
+            timeout: 2000,
+            data: JSON.stringify(data),
+        }
+        return axios(options)
+            .then(response => response)
+            .catch(error => {
+                throw new Error("Conection time out");
+            });
+    },
     logout: async function logout(url, tokens) {
-        console.log("API logout(url, tokens): ", decodeURI(url), tokens)
+        console.log("api.js logout(url, tokens): ", decodeURI(url), tokens)
         const csrf_token = getCsrfToken()
 
         if (csrf_token !== "Connection Error") {
@@ -80,9 +101,6 @@ export const api = {
 
         }
 
-    },
-    post: function postl(url, data) {
-        console.log("api.post ", url, data);
     },
     patch: function patch(url, data) {
         console.log("api.patch ", url, data);

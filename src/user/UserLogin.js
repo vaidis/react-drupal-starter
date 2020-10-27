@@ -1,7 +1,10 @@
 import React from 'react';
 import { userLoginRequest } from './user-actions'
 import { connect } from 'react-redux';
+
 import UserProfile from './UserProfile'
+
+
 
 const UserLogin = ({ dispatchUserLoginRequest }) => {
 
@@ -10,7 +13,9 @@ const UserLogin = ({ dispatchUserLoginRequest }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatchUserLoginRequest({ name: name, pass: pass })
+        const payload = { name: name, pass: pass }
+        console.log("handleSubmit > payload ", payload)
+        dispatchUserLoginRequest(payload)
     }
 
     return (
