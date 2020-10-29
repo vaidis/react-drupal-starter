@@ -6,8 +6,7 @@ import UserLogin from './user/UserLogin'
 import UserProfile from './user/UserProfile'
 import Articles from './articles/Articles'
 import Article from './article/Article'
-import ArticlePost from './article/ArticlePost'
-
+import ArticlePost from './articlePost/ArticlePost'
 
 function App() {
     return (

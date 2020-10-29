@@ -29,18 +29,18 @@
 import React from 'react'
 import { connect } from 'react-redux';
 
-import { postArticle } from './article-actions'
+import { postArticle, setArticleFile } from '../articlePost/articlePost-actions'
 
 import * as endpoint from '../api/endpoints'
-import { getCsrfToken } from '../api/api';
+// import { getCsrfToken } from '../api/api';
 
 
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 
 
-import { api } from '../api/api';
-import axios from 'axios';
+// import { api } from '../api/api';
+// import axios from 'axios';
 
 // ant design ------------------------------------------------
 // import "antd/dist/antd.css";
@@ -53,6 +53,11 @@ const ArticlePost = ({
   loaded,
   loading,
   dispatchPostArticle,
+  dispatchSetArticleFile,
+  images,
+  title,
+  body,
+  tags,
 }) => {
 
   const [values, setValues] = React.useState({
@@ -121,48 +126,32 @@ const ArticlePost = ({
   // ant design ------------------------------------------------
 
 
-  // react-dropzone-uploader 
   const getUploadParams = async ({ file, meta }) => {
 
+    // console.log('file >>>>>>>>>>>>>>>>> ', file)
+    // console.log('meta >>>>>>>>>>>>>>>>> ', meta.previewUrl)
+    // console.log('body >>>>>>>>>>>>>>>>> ', body)
+
     var body = file;
-
-    // var body = new FileReader();
-    // body.readAsArrayBuffer(file);
-
-    console.log('file >>>>>>>>>>>>>>>>> ', file)
-    console.log('meta >>>>>>>>>>>>>>>>> ', meta.previewUrl)
-
-    // const body = new FormData()
-    // body.append('fileField', file)
-    // body.append('type', 'normal')
-    // body.onload = async () => {
-      console.log('body >>>>>>>>>>>>>>>>> ', body)
-
-      // var reader = new FileReader();
-      // reader.readAsArrayBuffer(file);
-      // reader.onabort = () => console.log('file reading was aborted')
-      // reader.onerror = () => console.log('file reading has failed')
-      // reader.onload = () => {
-
-      // const csrf_token = await axios(endpoint.CSRF_TOKEN)
-      // const csrf_token = await getCsrfToken()
-      const url = endpoint.ARTICLE_POST_FILE;
-      const headers = {
-        "Accept": "application/vnd.api+json",
-        "Content-Type": "application/octet-stream",
-        // "X-CSRF-Token": 'Cr51pqpLefoiHvrcyDMED8zaF5Xsw71Sx0R18GJhIio',
-        "Content-Disposition": "file; filename=\"" + file.name + "\"",
-      }
-
-      const response = { url, headers, body }
-
-      // const response = { url, headers, body, meta: { fileUrl: `${url}/${encodeURIComponent(meta.name)}` } }
-      return response
-    // }
+    const url = endpoint.ARTICLE_POST_FILE;
+    const headers = {
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": "file; filename=\"" + file.name + "\"",
+    }
+    return { url, headers, body }
   }
 
-  const handleChangeStatus = ({ meta }, status) => {
-    // console.log(status, meta)
+  const handleChangeStatus = ({ xhr }, status) => {
+    if (xhr) {
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          const result = JSON.parse(xhr.response);
+          console.log('xhr.response >>>>>>>>>>>>>>>>> ', result)
+          dispatchSetArticleFile(result.data.id)
+        }
+      }
+    }
   }
 
   const handleSubmit = (files, allFiles) => {
@@ -187,6 +176,8 @@ const ArticlePost = ({
           inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
         }}
       />
+
+images: {JSON.stringify(images)}
       {/* react-dropzone-uploader */}
 
       {/* ant design */}
@@ -227,11 +218,16 @@ const ArticlePost = ({
 
 const mapDispatchToProps = dispatch => ({
   dispatchPostArticle: payload => dispatch(postArticle(payload)),
+  dispatchSetArticleFile: payload => dispatch(setArticleFile(payload)),
 })
 
 const mapStateToProps = (state) => ({
   loaded: state.api.loaded,
   loading: state.api.loading,
+  images: state.articlePost.images,
+  title: state.articlePost.title,
+  body: state.articlePost.body,
+  tags: state.articlePost.tags,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlePost);

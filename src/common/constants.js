@@ -25,8 +25,10 @@ export const SET_ARTICLES = 'SET_ARTICLES'
 // ---------------------------------------------- ARTICLE
 export const GET_ARTICLE = 'GET_ARTICLE'
 export const SET_ARTICLE = 'SET_ARTICLE'
+// ---------------------------------------------- ARTICLE POST
 export const POST_ARTICLE = 'POST_ARTICLE'
 export const POST_ARTICLE_FILE = 'POST_ARTICLE_FILE'
+export const SET_ARTICLE_FILE = 'SET_ARTICLE_FILE'
 
 // ---------------------------------------------- TERM
 export const GET_TERMS = 'GET_TERMS'
