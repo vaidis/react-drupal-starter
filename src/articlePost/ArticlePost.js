@@ -1,52 +1,17 @@
-//
-// Request Headers
-//
-// Accept: application/vnd.api+json
-// Content-Type: application/octet-stream
-// X-CSRF-Token: ab9GUlrf7UfccnaNKSmicMF60N0TcVzoWupcA3UBv7c
-// Content-Disposition: file; filename="156696.jpg"
-// User-Agent: PostmanRuntime/7.26.5
-// Postman-Token: 11d0a64a-816c-41cc-b7ff-8e45ae3f65c0
-// Host: 192.168.56.101
-// Connection: keep-alive
-// Cookie: "SESS2f4ff3168b8423453fc408c2c2581ce0=z4nY3mKAsitDoNP-1jn3oIuq2SukOHBj8702fq0fWaI"
-//
-//
-// Request Body
-//
-// content: {…}
-//     autoClose: true
-//     bytesRead: 379896
-//     closed: true
-//     fd: null
-//     flags: "r"
-//     mode: 438
-//     path: "/home/ste/Pictures/wallpapers/156696.jpg"
-//     readable: false
-// src: "/home/ste/Pictures/wallpapers/156696.jpg"
-//
-
 import React from 'react'
 import { connect } from 'react-redux';
 
-import { postArticle, setArticleFile } from '../articlePost/articlePost-actions'
-
+import {
+  postArticle,
+  setArticleFile,
+  setArticleBody,
+  setArticleTags,
+  setArticleTitle,
+} from '../articlePost/articlePost-actions'
 import * as endpoint from '../api/endpoints'
-// import { getCsrfToken } from '../api/api';
-
-
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 
-
-// import { api } from '../api/api';
-// import axios from 'axios';
-
-// ant design ------------------------------------------------
-// import "antd/dist/antd.css";
-// import { Upload, message } from 'antd';
-// import { InboxOutlined } from '@ant-design/icons';
-// ant design ------------------------------------------------
 
 
 const ArticlePost = ({
@@ -54,6 +19,9 @@ const ArticlePost = ({
   loading,
   dispatchPostArticle,
   dispatchSetArticleFile,
+  dispatchSetArticleTitle,
+  dispatchSetArticleBody,
+  dispatchSetArticleTags,
   images,
   title,
   body,
@@ -74,14 +42,42 @@ const ArticlePost = ({
     e.preventDefault();
     console.log("handleSumbit", e)
 
+    // WOrking - No image -------------------
+    // const payload2 = {
+    //   "data": {
+    //     "type": "node--article",
+    //     "attributes": {
+    //       "title": values.title,
+    //       "body": {
+    //         "value": values.body,
+    //         "format": "plain_text"
+    //       }
+    //     }
+    //   }
+    // }
+
     const payload = {
       "data": {
         "type": "node--article",
         "attributes": {
-          "title": values.title,
+          "title": title,
           "body": {
-            "value": values.body,
+            "value": body,
             "format": "plain_text"
+          }
+        },
+        "relationships": {
+          "field_image": {
+            "data": {
+              "type": "file--file",
+              "id": images.file,
+              "meta": {
+                "alt": "Json Uploaded Testing1",
+                "title": "Json Uploaded Testing1",
+                "width": null,
+                "height": null
+              }
+            }
           }
         }
       }
@@ -95,35 +91,6 @@ const ArticlePost = ({
   // React.useEffect(() => {
   //   console.log("useEffect()")
   // }, []);
-
-
-  // ant design ------------------------------------------------
-  // const { Dragger } = Upload;
-  // const props = {
-  //   name: 'file',
-  //   multiple: true,
-  //   withCredentials: true,
-  //   action: endpoint.ARTICLE_POST_FILE,
-  //   headers: {
-  //     "Accept": "application/vnd.api+json",
-  //     "Content-Type": "application/octet-stream",
-  //     "X-CSRF-Token": axios(endpoint.CSRF_TOKEN),
-  //     "Content-Disposition": "file; filename=\"" + "file" + "\"",
-  //     "Accept-Language": "en-US,en;q=0.9",
-  //   },
-  //   onChange(info) {
-  //     const { status } = info.file;
-  //     if (status !== 'uploading') {
-  //       console.log(info.file, info.fileList);
-  //     }
-  //     if (status === 'done') {
-  //       message.success(`${info.file.name} file uploaded successfully.`);
-  //     } else if (status === 'error') {
-  //       message.error(`${info.file.name} file upload failed.`);
-  //     }
-  //   },
-  // };
-  // ant design ------------------------------------------------
 
 
   const getUploadParams = async ({ file, meta }) => {
@@ -164,45 +131,36 @@ const ArticlePost = ({
   return (
     <div>
 
-      {/* react-dropzone-uploader */}
-      <Dropzone
-        getUploadParams={getUploadParams}
-        onChangeStatus={handleChangeStatus}
-        onSubmit={handleSubmit}
-        accept="image/*,audio/*,video/*"
-        inputContent={(files, extra) => (extra.reject ? 'Image, audio and video files only' : 'Drag Files')}
-        styles={{
-          dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-          inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-        }}
-      />
+      <div>images: {JSON.stringify(images)}</div>
+      <div>title: {JSON.stringify(title)}</div>
 
-images: {JSON.stringify(images)}
-      {/* react-dropzone-uploader */}
-
-      {/* ant design */}
-      {/* <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">Click or drag and drop the files</p>
-      </Dragger> */}
-      {/* ant design */}
 
       <form onSubmit={handleSumbitForm}>
         <input
           type="text"
           name="title"
           placeholder="Title"
-          onChange={handleChange('title')}
-          value={values.title}
+          onChange={(event) => dispatchSetArticleTitle(event.target.value)}
+          value={title || ''}
+        />
+        <Dropzone
+          multiple={false}
+          maxFiles={1}
+          getUploadParams={getUploadParams}
+          onChangeStatus={handleChangeStatus}
+          accept="image/*,audio/*,video/*"
+          inputContent={(files, extra) => (extra.reject ? 'Image, audio and video files only' : 'Drag Files')}
+          styles={{
+            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+          }}
         />
         <input
           type="text"
           name="body"
           placeholder="Body"
-          onChange={handleChange('body')}
-          value={values.body}
+          onChange={(event) => dispatchSetArticleBody(event.target.value)}
+          value={body || ''}
         />
         <input
           type="submit"
@@ -219,6 +177,9 @@ images: {JSON.stringify(images)}
 const mapDispatchToProps = dispatch => ({
   dispatchPostArticle: payload => dispatch(postArticle(payload)),
   dispatchSetArticleFile: payload => dispatch(setArticleFile(payload)),
+  dispatchSetArticleTitle: payload => dispatch(setArticleTitle(payload)),
+  dispatchSetArticleBody: payload => dispatch(setArticleBody(payload)),
+  dispatchSetArticleTags: payload => dispatch(setArticleTags(payload)),
 })
 
 const mapStateToProps = (state) => ({
