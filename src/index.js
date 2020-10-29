@@ -18,13 +18,11 @@ store.subscribe(() => {
 });
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <Router history={history}>
         <App />
       </Router>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 

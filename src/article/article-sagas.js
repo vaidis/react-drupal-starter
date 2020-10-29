@@ -11,6 +11,7 @@ import {
     GET_ARTICLE,
     SET_ARTICLE,
     POST_ARTICLE,
+    POST_ARTICLE_FILE,
     SET_LOADED_TRUE,
     SET_LOADED_FALSE,
 } from '../common/constants'
@@ -19,10 +20,8 @@ import { api } from '../api/api';
 import * as endpoint from '../api/endpoints'
 
 function* getArticleWorker({ payload }) {
-
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
-
     try {
         const article = yield call(api.get, endpoint.ARTICLE(payload));
         console.log("article-sagas.js getArticleWorker article", article);
@@ -38,18 +37,28 @@ function* getArticleWorker({ payload }) {
 }
 
 function* postArticleWorker({ payload }) {
-
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
-
     try {
         const response = yield call(api.post, endpoint.ARTICLE_POST, payload);
-        console.log("article-sagas.js postArticleWorker response", response);
-
+        console.log("postArticleWorker response", response);
         yield put({ type: SET_LOADED_TRUE })
-
     } catch (error) {
-        console.log("article-sagas.js postArticleWorker error", error);
+        console.log("postArticleWorker error", error);
+    } finally {
+        yield put({ type: SET_LOADING_OFF })
+    }
+}
+
+function* postArticleFileWorker({ payload }) {
+    yield put({ type: SET_LOADING_ON })
+    yield put({ type: SET_LOADED_FALSE })
+    try {
+        const response = yield call(api.postFile, endpoint.ARTICLE_POST_FILE, payload);
+        console.log("postArticleFileWorker response", response);
+        yield put({ type: SET_LOADED_TRUE })
+    } catch (error) {
+        console.log("postArticleWorker error", error);
     } finally {
         yield put({ type: SET_LOADING_OFF })
     }
@@ -58,6 +67,7 @@ function* postArticleWorker({ payload }) {
 export default function* root() {
     yield all([
         takeLatest(GET_ARTICLE, getArticleWorker),
-        takeLatest(POST_ARTICLE, postArticleWorker)
+        takeLatest(POST_ARTICLE, postArticleWorker),
+        takeLatest(POST_ARTICLE_FILE, postArticleFileWorker),
     ]);
 }

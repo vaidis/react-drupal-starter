@@ -9,8 +9,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* Custom dark theme */
+.dropzone {
+  background: #e7e7e7;
+  color: #999999;
+  padding: 10px;
+}
 
+/* Custom dark theme */
+/* 
 body {
   background: #000000;
   color: #aaaaaa;
@@ -41,10 +47,5 @@ button {
   flex-direction: row;
   align-content: space-between;
   align-items: space-between;
-}
-
-/* #Menu {
-  background: #444444;
-  padding: 10px;
-  margin: 10px 0px;
 } */
+

@@ -77,6 +77,34 @@ export const api = {
                 throw new Error("Conection time out");
             });
     },
+    postFile: async function postFile(url, file, data) {
+
+        const csrf_token = await getCsrfToken()
+
+        const options = {
+            url: url,
+            method: 'post',
+            headers: {
+                "Accept": "application/vnd.api+json",
+                "Content-Type": "application/octet-stream",
+                "X-CSRF-Token": csrf_token,
+                "Content-Disposition": "file; filename=\"" + file + "\"",
+                // "Content-Encoding": "gzip"
+                "Accept-Encoding": "gzip, deflate, br",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Connection": "keep-alive",
+                
+            },
+            withCredentials: true,
+            timeout: 2000,
+            data: data,
+        }
+        return axios(options)
+            .then(response => response)
+            .catch(error => {
+                throw new Error("Conection time out");
+            });
+    },
     logout: async function logout(url, tokens) {
         console.log("api.js logout(url, tokens): ", decodeURI(url), tokens)
         const csrf_token = getCsrfToken()
