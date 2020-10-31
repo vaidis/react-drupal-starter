@@ -11,8 +11,11 @@ export const LOGOUT = `${BASE}/user/logout?_format=json`
 
 // ARTICLE
 export const ARTICLE = (path) => `${BASE_API}/node/article?include=field_image,field_tags,uid&filter[field_path][value]=/article/${path}`
-export const ARTICLE_POST = `${BASE_API}/node/article`
 export const ARTICLE_POST_FILE = `${BASE_API}/node/article/field_image`
+// export const ARTICLE_POST = `${BASE}/node?_format=hal_json`
+// export const ARTICLE_POST = `${BASE}/entity/node?_format=hal_json`
+export const ARTICLE_POST = `${BASE_API}/node/article`
+
 
 // ARTICLES
 const NODE = '/node/article'
@@ -35,3 +38,6 @@ export const ARTICLES = (params) => {
     console.log("endpoints.js > ARTICLES > params:", params)
     return `${BASE_API}${NODE}${INCLUDE}${LIMIT}${params.limit}${OFFSET}${params.offset}`
 }
+
+// VOCABULARY
+export const VOCABULARY = (vocabulary) => `${BASE_API}/taxonomy_term/${vocabulary}`

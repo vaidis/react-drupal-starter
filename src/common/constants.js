@@ -37,3 +37,6 @@ export const SET_ARTICLE_TAGS = 'SET_ARTICLE_TAGS'
 // ---------------------------------------------- TERM
 export const GET_TERMS = 'GET_TERMS'
 export const SET_TERMS = 'SET_TERMS'
+export const GET_VOCABULARY = 'GET_VOCABULARY'
+export const SET_VOCABULARY = 'SET_VOCABULARY'
+

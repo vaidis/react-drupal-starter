@@ -5,13 +5,16 @@ import {
     SET_ARTICLE_TITLE,
     SET_ARTICLE_BODY,
     SET_ARTICLE_TAGS,
+    SET_VOCABULARY,
 } from '../common/constants'
 
 const reducer = (state = {
     images: [],
-    tags: '',
+    files: [],
+    // tags: '',
     title: '',
     body: '',
+    vocabulary: [{ value: '', label: '' }],
 }, action) => {
     switch (action.type) {
 
@@ -32,13 +35,24 @@ const reducer = (state = {
         case SET_ARTICLE_TAGS:
             return { ...state, tags: action.payload }
 
+        case SET_VOCABULARY:
+            // working:
+            // named 'value' instead of 'id' for the needs of the react-select
+            // const terms = action.payload.data.map(item => ({ value: item.id, label: item.name }))
+
+            const terms = action.payload.data.map(item => (
+                { value: item.id, label: item.name }
+            ))
+            console.log("terms", terms)
+            // return { ...state, vocabulary: action.payload.data }
+            return { ...state, vocabulary: terms }
+
         case SET_ARTICLE_FILE:
             console.log("SET_ARTICLE_FILE")
-            const item = action.payload;
-            const file = item
-            const images = {
+            const id = action.payload;
+            const files = {
                 ...state.images,
-                file,
+                id,
             };
 
             // Creates an object key:value
@@ -50,7 +64,7 @@ const reducer = (state = {
 
             return {
                 ...state,
-                images,
+                files,
             };
         default:
             return state;

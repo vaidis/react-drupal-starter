@@ -5,7 +5,22 @@ import {
     SET_ARTICLE_TITLE,
     SET_ARTICLE_BODY,
     SET_ARTICLE_TAGS,
+    GET_VOCABULARY,
+    SET_VOCABULARY,
 } from '../common/constants'
+
+
+export const getVocabulary = (payload) => (
+    console.log("GET_VOCABULARY: ", payload) || {
+    type: GET_VOCABULARY,
+    payload
+});
+
+export const setVocabulary = (payload) => (
+    console.log("SET_VOCABULARY: ", payload) || {
+    type: SET_VOCABULARY,
+    payload
+});
 
 export const postArticle = (payload) => (
     console.log("POST_ARTICLE: ", payload) || {

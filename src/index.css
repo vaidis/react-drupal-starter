@@ -15,6 +15,13 @@ code {
   padding: 10px;
 }
 
+form .dzu-dropzone {
+  overflow: hidden;
+  background-color: beige;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /* Custom dark theme */
 /* 
 body {

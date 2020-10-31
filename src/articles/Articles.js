@@ -59,12 +59,14 @@ const Articles = ({
       <p>{urlParams.terms !== '' && "articles with terms: " + urlParams.terms}</p>
 
       {
-        loaded
+        articles
           ? (
             articles.map((item, i) => {
 
+
               // get TERMS field
-              const terms = item.field_tags.map((term, i) => {
+              let terms = ''
+              terms = item.field_tags.map((term, i) => {
                 return (
                   <div key={i}>
                     <Link to={"/?terms=" + term.name}>{term.name}</Link>
@@ -73,13 +75,17 @@ const Articles = ({
               })
 
               // get IMAGE field
-              const imageobject = item.field_image.image_style_uri;
               let image = ''
-              imageobject.forEach(function (item) {
-                if (item.thumbnail) {
-                  image = item.thumbnail
-                }
-              })
+              if (item.field_image.image_style_uri) {
+                const imageobject = item.field_image.image_style_uri;
+                imageobject.forEach(function (item) {
+                  if (item.thumbnail) {
+                    image = item.thumbnail
+                  }
+                })
+              } else {
+                const imageobject = ''
+              }
 
               // render the article item
               return (
