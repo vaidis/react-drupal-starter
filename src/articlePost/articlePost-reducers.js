@@ -5,7 +5,10 @@ import {
     SET_ARTICLE_TITLE,
     SET_ARTICLE_BODY,
     SET_ARTICLE_TAGS,
+    ADD_ARTICLE_TAGS,
     SET_VOCABULARY,
+    SET_SELECTED,
+    ADD_SELECTED,
 } from '../common/constants'
 
 const reducer = (state = {
@@ -14,16 +17,19 @@ const reducer = (state = {
     // tags: '',
     title: '',
     body: '',
+    selected: '',
     vocabulary: [{ value: '', label: '' }],
 }, action) => {
+
+
     switch (action.type) {
 
         case POST_ARTICLE:
-            console.log("POST_ARTICLE")
+            console.group("POST_ARTICLE"); console.groupEnd();
             return action.payload;
 
         case POST_ARTICLE_FILE:
-            console.log("POST_ARTICLE_FILE")
+            console.group("POST_ARTICLE_FILE"); console.groupEnd();
             return action.payload;
 
         case SET_ARTICLE_TITLE:
@@ -32,8 +38,29 @@ const reducer = (state = {
         case SET_ARTICLE_BODY:
             return { ...state, body: action.payload }
 
+        case SET_SELECTED:
+            // used by the react-select
+            console.group("SET_SELECTED", action.payload); console.groupEnd();
+            return {
+                ...state,
+                selected: action.payload
+            }
+
+        case ADD_SELECTED:
+            // used after a saga add new term to merge it to selected
+            return {
+                ...state,
+                selected: [...state.selected, action.payload]
+            }
+
         case SET_ARTICLE_TAGS:
             return { ...state, tags: action.payload }
+
+        case ADD_ARTICLE_TAGS:
+            return {
+                ...state,
+                tags: [...state.tags, action.payload]
+            }
 
         case SET_VOCABULARY:
             // working:
@@ -43,12 +70,14 @@ const reducer = (state = {
             const terms = action.payload.data.map(item => (
                 { value: item.id, label: item.name }
             ))
-            console.log("terms", terms)
+            // console.group();
+            console.group("SET_VOCABULARY", terms); console.groupEnd();
             // return { ...state, vocabulary: action.payload.data }
             return { ...state, vocabulary: terms }
 
         case SET_ARTICLE_FILE:
-            console.log("SET_ARTICLE_FILE")
+            // console.group();
+            console.group("SET_ARTICLE_FILE"); console.groupEnd();
             const id = action.payload;
             const files = {
                 ...state.images,

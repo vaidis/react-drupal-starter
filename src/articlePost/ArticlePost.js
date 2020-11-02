@@ -1,56 +1,62 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+// import Select from 'react-select'
+// import makeAnimated from 'react-select/animated';
 // import AsyncSelect from 'react-select/async';
+import CreatableSelect from 'react-select/creatable';
 
 import {
     postArticle,
+    postTag,
     setArticleFile,
     setArticleBody,
     setArticleTags,
     setArticleTitle,
     getVocabulary,
+    setSelected,
+    addSelected,
 } from '../articlePost/articlePost-actions'
 import * as endpoint from '../api/endpoints'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 
-const animatedComponents = makeAnimated();
+// const animatedComponents = makeAnimated();
 
 const ArticlePost = ({
     loaded,
     loading,
     dispatchPostArticle,
+    dispatchPostTag,
     dispatchSetArticleFile,
     dispatchSetArticleTitle,
     dispatchSetArticleBody,
     dispatchSetArticleTags,
     dispatchGetVocabulary,
+    dispatchSetSelected,
+    dispatchAddSelected,
     images,
     title,
     files,
     body,
     tags,
+    selected,
     vocabulary,
 }) => {
 
-    // const [values, setValues] = React.useState({
-    //   title: '',
-    //   body: '',
-    //   images: '',
-    // });
 
-    // const handleChange = prop => event => {
-    //   setValues({ ...values, [prop]: event.target.value });
-    // };
+    Object.size = function (obj) {
+        var size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
 
-    const [selected, setSelected] = React.useState();
 
     const handleSumbitForm = (e) => {
         e.preventDefault();
-        console.log("handleSumbit e", e)
-        console.log("handleSumbit tags", tags)
+
+        // POST request body
         const payload = {
             "data": {
                 "type": "node--article",
@@ -80,22 +86,14 @@ const ArticlePost = ({
                 }
             }
         }
-
         console.log('dispatchPostArticle payload', payload)
         dispatchPostArticle(payload)
     }
 
 
-    React.useEffect(() => {
-        // get the available tags from vocabulary
-        // to fill the option list of the react-select
-        dispatchGetVocabulary('tags')
-    }, [
-        dispatchGetVocabulary,
-    ]);
-
-
-    // upload the image and get the image id before the form submit
+    //
+    // image: POST request
+    //
     const getUploadParams = async ({ file, meta }) => {
         var body = file;
         const url = endpoint.ARTICLE_POST_FILE;
@@ -107,7 +105,9 @@ const ArticlePost = ({
         return { url, headers, body }
     }
 
-    // when the submit is finished store the file
+    //
+    // image: POST response (id)
+    //
     const handleChangeStatus = ({ xhr }, status) => {
         if (xhr) {
             xhr.onreadystatechange = () => {
@@ -120,26 +120,85 @@ const ArticlePost = ({
         }
     }
 
-    // POST body entries, one for every tag
+
+    React.useEffect(() => {
+        //
+        // tags:
+        // get the vocabulary
+        // save it to store.vocabulary
+        // (react-select use the store.vocabulary as term options)
+        //
+        dispatchGetVocabulary('tags')
+    }, [
+        dispatchGetVocabulary,
+    ]);
+
+
+
+    //
+    // tags:
+    // part of POST body
+    //
     const tagPostBodyitem = (item) => {
         return (
             { "type": "taxonomy_term--tags", "id": item }
         )
     }
 
-    // store to redux every change
+    //
+    // tags:
+    // called from react-select
+    // save selected values to store.articlePost.tags
+    //
     const handleSelectOnChange = (value) => {
-        // console.log("handleSelectOnChange", JSON.stringify(value))
-        setSelected(value)
-        const ids = value.map(x => tagPostBodyitem(x.value));
-        dispatchSetArticleTags(ids)
+        console.log("handleSelectOnChange value", JSON.stringify(value))
+        dispatchSetSelected(value)
+        if (value) {
+
+            //
+            // combine selected items with format:
+            // {1234},{5678},{9012}
+            //
+            const ids = value.map(x => tagPostBodyitem(x.value));
+
+            //
+            // save them in store.articlePost.tags
+            // ready for POST article with tags
+            //
+            dispatchSetArticleTags(ids)
+        }
     }
 
-    // const handleSubmit = (files, allFiles) => {
-    //   // console.log(files.map(f => f.meta))
-    //   allFiles.forEach(f => f.remove())
-    // }
+    //
+    // tags:
+    // POST a new term (before submitting the article)
+    // and add it in the store.articlePost.selected (react-select options)
+    //
+    const handleSelectOnCreate = (name) => {
 
+        // POST new tag
+        console.group('handleSelectOnCreate', name);
+        const body = {
+            "data": {
+                "type": "taxonomy_term--tags",
+                "attributes": {
+                    "name": name
+                }
+            }
+        }
+        dispatchPostTag(body)
+    }
+
+
+    const handleSelectInputChange = (e) => {
+        console.log("handleSelectInputChange - - - - - - - -")
+        if (selected) {
+            const ids = selected.map(x => tagPostBodyitem(x.value));
+            console.log("handleSelectInputChange ids ----------------------", ids)
+            dispatchSetArticleTags(ids)
+        }
+        // console.log("handleSelectInputChange ====================================")
+    }
 
     return (
         <div>
@@ -148,6 +207,17 @@ const ArticlePost = ({
                 onSubmit={handleSumbitForm}
                 style={{ margin: '10px' }}
             >
+
+                <CreatableSelect
+                    isMulti
+                    isClearable
+                    value={selected}
+                    options={vocabulary}
+                    onChange={handleSelectOnChange}
+                    onCreateOption={handleSelectOnCreate}
+                    onInputChange={handleSelectInputChange}
+                />
+
                 <input
                     type="text"
                     name="title"
@@ -175,17 +245,19 @@ const ArticlePost = ({
                     value={body || ''}
                 />
 
-                <Select
+
+
+                {/* <Select
+                    isMulti
                     // defaultValue={[options[1], options[2]]}
                     defaultValue={[]}
                     closeMenuOnSelect={false}
                     components={animatedComponents}
-                    isMulti
                     options={vocabulary}
                     // onChange={value => dispatchSetArticleTags(value)}
                     onChange={value => handleSelectOnChange(value)}
                     value={selected}
-                />
+                /> */}
 
                 <input
                     type="submit"
@@ -194,11 +266,12 @@ const ArticlePost = ({
                 />
             </form>
 
-            <div>title: {JSON.stringify(title)}</div>
-            <div>images: {JSON.stringify(images)}</div>
-            <div>body: {JSON.stringify(body)}</div>
-            <div>tags: {JSON.stringify(tags)}</div>
-            <div>selected: {JSON.stringify(selected)}</div>
+            <div>title: {JSON.stringify(title)}</div><br />
+            <div>images: {JSON.stringify(images)}</div><br />
+            <div>body: {JSON.stringify(body)}</div><br />
+            <div>tags: {JSON.stringify(tags)}</div><br />
+            <div>selected: {JSON.stringify(selected)}</div><br />
+            <div>vocabulary: {JSON.stringify(Object.size(vocabulary))}</div><br />
             {/* <div>vocabulary: {vocabulary && JSON.stringify(vocabulary)}</div> */}
         </div>
 
@@ -207,11 +280,14 @@ const ArticlePost = ({
 
 const mapDispatchToProps = dispatch => ({
     dispatchPostArticle: payload => dispatch(postArticle(payload)),
+    dispatchPostTag: payload => dispatch(postTag(payload)),
     dispatchSetArticleFile: payload => dispatch(setArticleFile(payload)),
     dispatchSetArticleTitle: payload => dispatch(setArticleTitle(payload)),
     dispatchSetArticleBody: payload => dispatch(setArticleBody(payload)),
     dispatchSetArticleTags: payload => dispatch(setArticleTags(payload)),
     dispatchGetVocabulary: payload => dispatch(getVocabulary(payload)),
+    dispatchSetSelected: payload => dispatch(setSelected(payload)),
+    dispatchAddSelected: payload => dispatch(addSelected(payload)),
 })
 
 const mapStateToProps = (state) => ({
@@ -222,7 +298,8 @@ const mapStateToProps = (state) => ({
     title: state.articlePost.title,
     body: state.articlePost.body,
     tags: state.articlePost.tags,
-    vocabulary: state.articlePost.vocabulary
+    vocabulary: state.articlePost.vocabulary,
+    selected: state.articlePost.selected,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlePost);

@@ -76,15 +76,14 @@ const Articles = ({
 
               // get IMAGE field
               let image = ''
+              let imageobject = ''
               if (item.field_image.image_style_uri) {
-                const imageobject = item.field_image.image_style_uri;
+                imageobject = item.field_image.image_style_uri;
                 imageobject.forEach(function (item) {
                   if (item.thumbnail) {
                     image = item.thumbnail
                   }
                 })
-              } else {
-                const imageobject = ''
               }
 
               // render the article item

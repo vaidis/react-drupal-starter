@@ -27,18 +27,18 @@ const reducer = (state = initialStore, action) => {
     switch (action.type) {
 
         case SET_LOADING_ON:
-            console.log("SET_LOADING_ON")
+            // console.log("SET_LOADING_ON")
             return { ...state, loading: true };
         case SET_LOADING_OFF:
-            console.log("SET_LOADING_OFF")
+            // console.log("SET_LOADING_OFF")
             return { ...state, loading: false };
 
 
         case SET_LOADED_TRUE:
-            console.log("SET_LOADED_TRUE")
+            // console.log("SET_LOADED_TRUE")
             return { ...state, loaded: true };
         case SET_LOADED_FALSE:
-            console.log("SET_LOADED_FALSE")
+            // console.log("SET_LOADED_FALSE")
             return { ...state, loaded: false };
 
 

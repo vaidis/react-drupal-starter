@@ -17,7 +17,7 @@ export const getCsrfToken = async () => {
 
 export const api = {
     get: async function get(url) {
-        console.log("api.js > get > url: ", decodeURI(url))
+        console.group("api.get", decodeURI(url))
         return axios.get(url, {
             headers: {
                 "Content-Type": "application/hal+json",
@@ -26,7 +26,10 @@ export const api = {
             withCredentials: true,
             timeout: 5000,
         })
-            .then(response => response)
+            .then(response => {
+                console.log('response', response); console.groupEnd();
+                return response
+            })
             .catch(error => {
                 throw new Error(
                     `${error.response.statusText} (${error.response.status})`
@@ -72,7 +75,11 @@ export const api = {
             data: JSON.stringify(data),
         }
         return axios(options)
-            .then(response => response)
+            .then(
+                response => {
+                    console.log('response', response.data)
+                    return response
+                })
             .catch(error => {
                 throw new Error("Conection time out");
             });
@@ -89,11 +96,10 @@ export const api = {
                 "Content-Type": "application/octet-stream",
                 "X-CSRF-Token": csrf_token,
                 "Content-Disposition": "file; filename=\"" + file + "\"",
-                // "Content-Encoding": "gzip"
                 "Accept-Encoding": "gzip, deflate, br",
                 "Accept-Language": "en-US,en;q=0.9",
                 "Connection": "keep-alive",
-                
+
             },
             withCredentials: true,
             timeout: 2000,
@@ -106,7 +112,7 @@ export const api = {
             });
     },
     logout: async function logout(url, tokens) {
-        console.log("api.js logout(url, tokens): ", decodeURI(url), tokens)
+        console.log("api.logout(url, tokens): ", decodeURI(url), tokens)
         const csrf_token = getCsrfToken()
 
         if (csrf_token !== "Connection Error") {

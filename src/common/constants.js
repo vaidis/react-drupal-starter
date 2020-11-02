@@ -28,11 +28,17 @@ export const SET_ARTICLE = 'SET_ARTICLE'
 // ---------------------------------------------- ARTICLE POST
 export const POST_ARTICLE = 'POST_ARTICLE'
 export const POST_ARTICLE_FILE = 'POST_ARTICLE_FILE'
+export const POST_TAG = 'POST_TAG'
 
 export const SET_ARTICLE_FILE = 'SET_ARTICLE_FILE'
 export const SET_ARTICLE_TITLE = 'SET_ARTICLE_TITLE'
 export const SET_ARTICLE_BODY = 'SET_ARTICLE_BODY'
 export const SET_ARTICLE_TAGS = 'SET_ARTICLE_TAGS'
+export const ADD_ARTICLE_TAGS = 'ADD_ARTICLE_TAGS'
+
+export const SET_SELECTED = 'SET_SELECTED'
+export const GET_SELECTED = 'GET_SELECTED'
+export const ADD_SELECTED = 'ADD_SELECTED'
 
 // ---------------------------------------------- TERM
 export const GET_TERMS = 'GET_TERMS'

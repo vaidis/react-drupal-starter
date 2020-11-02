@@ -11,9 +11,8 @@ export const LOGOUT = `${BASE}/user/logout?_format=json`
 
 // ARTICLE
 export const ARTICLE = (path) => `${BASE_API}/node/article?include=field_image,field_tags,uid&filter[field_path][value]=/article/${path}`
+export const POST_TAG = `${BASE_API}/taxonomy_term/tags`
 export const ARTICLE_POST_FILE = `${BASE_API}/node/article/field_image`
-// export const ARTICLE_POST = `${BASE}/node?_format=hal_json`
-// export const ARTICLE_POST = `${BASE}/entity/node?_format=hal_json`
 export const ARTICLE_POST = `${BASE_API}/node/article`
 
 
