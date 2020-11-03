@@ -6,20 +6,18 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 0.8em;
 }
 
 .dropzone {
-  background: #e7e7e7;
-  color: #999999;
+  /* background: #e7e7e7; */
+  /* color: #999999; */
   padding: 10px;
 }
 
 form .dzu-dropzone {
   overflow: hidden;
-  background-color: beige;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 10px 0px;
 }
 
 /* Custom dark theme */

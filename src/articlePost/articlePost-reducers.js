@@ -14,13 +14,12 @@ import {
 const reducer = (state = {
     images: [],
     files: [],
-    // tags: '',
+    tags: [],
     title: '',
     body: '',
-    selected: '',
-    vocabulary: [{ value: '', label: '' }],
+    selected: [],
+    vocabulary: [],
 }, action) => {
-
 
     switch (action.type) {
 
@@ -39,7 +38,9 @@ const reducer = (state = {
             return { ...state, body: action.payload }
 
         case SET_SELECTED:
+            //
             // used by the react-select
+            //
             console.group("SET_SELECTED", action.payload); console.groupEnd();
             return {
                 ...state,
@@ -47,7 +48,9 @@ const reducer = (state = {
             }
 
         case ADD_SELECTED:
-            // used after a saga add new term to merge it to selected
+            //
+            // used by saga to add the new term to selected terms
+            //
             return {
                 ...state,
                 selected: [...state.selected, action.payload]
@@ -63,10 +66,9 @@ const reducer = (state = {
             }
 
         case SET_VOCABULARY:
-            // working:
+            //
             // named 'value' instead of 'id' for the needs of the react-select
-            // const terms = action.payload.data.map(item => ({ value: item.id, label: item.name }))
-
+            //
             const terms = action.payload.data.map(item => (
                 { value: item.id, label: item.name }
             ))
@@ -83,18 +85,11 @@ const reducer = (state = {
                 ...state.images,
                 id,
             };
-
-            // Creates an object key:value
-            // const item = action.payload;
-            // const images = {
-            //   ...state.images,
-            //   [item]: item,
-            // };
-
             return {
                 ...state,
                 files,
             };
+
         default:
             return state;
     }

@@ -43,14 +43,14 @@ const reducer = (state = initialStore, action) => {
 
 
         case SET_API_URL_PARAMS:
-            console.log("SET_API_URL_PARAMS", action)
+            // console.log("SET_API_URL_PARAMS", action)
             return {
                 ...state,
                 urlParams: action.payload
             };
 
         case SET_API_PAGER_LINKS:
-            console.log("SET_API_PAGER_LINKS", action)
+            // console.log("SET_API_PAGER_LINKS", action)
             return {
                 ...state,
                 pager: action.payload
