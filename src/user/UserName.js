@@ -6,14 +6,17 @@ import UserLogout from './UserLogout'
 
 const UserLogin = ({ user }) => {
     return (
-        <div>
+        <div style={{ fontStyle: "italic" }}>
             Hello
             {
                 user.uid !== 0
-                    ? <Link to="/user/profile">{user.name}</Link>
-                    : ' mr Anonymous'
+                    ? <div>
+                        <Link to="/user/profile"> {user.name} </Link>
+                        <UserLogout />
+                    </div>
+                    : ' Anonymous'
             }
-            <UserLogout />
+
         </div>
     );
 }

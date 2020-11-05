@@ -1,17 +1,16 @@
 import React from 'react';
 import { userLogoutRequest } from './user-actions'
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const UserLogout = ({ uid, dispatchUserLogoutRequest }) => {
     return (
         <div>
             { uid !== 0 && (
-                <button
-                    type="button"
+                <Link
                     onClick={() => dispatchUserLogoutRequest()}
-                >
-                    Logout
-                </button>
+                    to={'#'}
+                >(logout)</Link>
             )}
         </div>
     );

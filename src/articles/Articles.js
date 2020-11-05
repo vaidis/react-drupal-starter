@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 import { getArticles } from './articles-actions'
 import { setApiUrlParams } from '../api/api-actions'
 import { compareObjects } from '../utils/compareObjects'
-
 import Pager from '../pager/Pager'
 
 function useQuery() {
@@ -21,7 +20,6 @@ const Articles = ({
   dispatchSetApiUrlParams,
   dispatchGetArticles,
 }) => {
-
   //
   // - get the font-end url params if any
   // - into urlParams object
@@ -57,14 +55,13 @@ const Articles = ({
   return (
     <div>
       <p>{urlParams.terms !== '' && "articles with terms: " + urlParams.terms}</p>
-
       {
-        articles
+        !loading && loaded && articles
           ? (
             articles.map((item, i) => {
-
-
+              //
               // get TERMS field
+              //
               let terms = ''
               terms = item.field_tags.map((term, i) => {
                 return (
@@ -73,8 +70,9 @@ const Articles = ({
                   </div>
                 )
               })
-
+              //
               // get IMAGE field
+              //
               let image = ''
               let imageobject = ''
               if (item.field_image.image_style_uri) {
@@ -85,26 +83,21 @@ const Articles = ({
                   }
                 })
               }
-
+              //
               // render the article item
+              //
               return (
                 <div key={i} style={{ marginBottom: "20px" }}>
                   <Link to={item.path.alias}>
-
                     <h4 style={{ marginBottom: "0px" }}>{item.title}</h4>
                     <img src={image} alt="Girl in a jacket"></img>
                   </Link>
                   {terms}
                 </div>
               )
-
             })
           )
-          : (
-            // console.log("------------- NOT LOADED WET -----------")
-            null
-          )
-
+          : ( <div>Loading...</div> )
       }
       <Pager />
     </div>

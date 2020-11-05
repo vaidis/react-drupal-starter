@@ -23,8 +23,6 @@ import {
 import { api } from '../api/api';
 import * as endpoint from '../api/endpoints'
 
-
-
 function* UserLoginWorker(loginOptions) {
     yield put({ type: SET_LOADING_ON })
     const credentials = {
@@ -34,10 +32,9 @@ function* UserLoginWorker(loginOptions) {
     try {
         const response = yield call(api.login, endpoint.LOGIN, credentials)
         yield put({ type: USER_SET_DATA, payload: response.data });
-        console.log("UserLoginWorker > response", response);
+        // console.log("UserLoginWorker > response", response);
     } catch (error) {
-        const error_msg = error.message
-        console.log("UserLoginWorker > error: ", error_msg);
+        // console.log("UserLoginWorker > error: ", error);
         yield put({ type: USER_LOGIN_FAILURE });
     } finally {
         yield put({ type: SET_LOADING_OFF })
@@ -45,7 +42,7 @@ function* UserLoginWorker(loginOptions) {
 }
 
 function* UserLogoutWorker() {
-    console.log("userLogoutWorker");
+    // console.log("userLogoutWorker");
     yield put({ type: SET_LOADING_ON })
     try {
         const state = yield select()
@@ -57,7 +54,7 @@ function* UserLogoutWorker() {
         yield call(api.logout, endpoint.LOGOUT, tokens);
         yield put({ type: USER_LOGOUT_SUCCESS });
     } catch (error) {
-        console.log("userLogoutWarker error", error);
+        // console.log("userLogoutWarker error", error);
         yield put({ type: USER_LOGOUT_FAILURE });
     } finally {
         yield put({ type: SET_LOADING_OFF })

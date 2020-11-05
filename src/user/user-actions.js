@@ -9,8 +9,6 @@ import {
     USER_LOGOUT_FAILURE,
 } from '../common/constants'
 
-
-
 // -------------------------------------------- LOGIN
 export const userLoginRequest = (payload) => (
     console.log("USER_LOGIN_REQUEST: ", payload) || {

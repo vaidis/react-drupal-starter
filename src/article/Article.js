@@ -14,9 +14,7 @@ const Article = ({
   title,
   dispatchGetArticle
 }) => {
-
   let { path } = useParams();
-
   React.useEffect(() => {
     dispatchGetArticle(path)
   }, [
@@ -27,22 +25,18 @@ const Article = ({
   return (
     <div>
       {
-        article.data
+        !loading && article.data
           ? (
             <div>
-
               <h1>{article.data[0].title}</h1>
               <div>{article.data[0].created}</div>
-
               <div>
                 <img
                   src={endpoint.BASE + "/" + article.data[0].field_image.uri.url}
                   alt={title}
                 />
               </div>
-
               <div>{article.data[0].body.value.substring(0, 255)}</div>
-
               <div>
                 {
                   article.data[0].field_tags.lenght &&
@@ -53,10 +47,8 @@ const Article = ({
                       </span>
                     )
                   })
-
                 }
               </div>
-
             </div>
           )
           : (

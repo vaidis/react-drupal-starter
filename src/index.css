@@ -20,8 +20,21 @@ form .dzu-dropzone {
   margin: 10px 0px;
 }
 
+
+#header {
+  background: #f1f1f1f1;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  align-items: space-between;
+}
+#header #Menu a {
+  margin: 5px;
+  flex-direction: row;
+}
 /* Custom dark theme */
-/* 
+/*
 body {
   background: #000000;
   color: #aaaaaa;

@@ -29,8 +29,18 @@ function* postArticleWorker({ payload }) {
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
     try {
-        const response = yield call(api.post, endpoint.ARTICLE_POST, payload);
-        console.group("postArticleWorker response", response);
+        /***
+         * GET csrf token
+         *
+         */
+        const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
+        // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
+        /**
+         * POST Article
+         *
+         */
+        const response = yield call(api.post, endpoint.ARTICLE_POST, payload, csrf_token.data);
+        // console.group("postArticleWorker response", response);
         yield put({ type: SET_LOADED_TRUE })
     } catch (error) {
         console.log("postArticleWorker error", error);
@@ -45,8 +55,18 @@ function* postArticleFileWorker({ payload }) {
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
     try {
-        const response = yield call(api.postFile, endpoint.ARTICLE_POST_FILE, payload);
-        console.group("postArticleFileWorker response", response);
+        /**
+         * GET csrf token
+         *
+         */
+        const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
+        // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
+        /**
+         * POST FILE
+         *
+         */
+        const response = yield call(api.postFile, endpoint.ARTICLE_POST_FILE, payload, csrf_token.data);
+        // console.group("postArticleFileWorker response", response);
         yield put({ type: SET_LOADED_TRUE })
     } catch (error) {
         console.log("postArticleWorker error", error);
@@ -55,15 +75,17 @@ function* postArticleFileWorker({ payload }) {
     }
 }
 
-
-
 function* getVocabularyWorker({ payload }) {
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
     console.group("getVocabularyWorker",);
     try {
+        /**
+         * GET Vocabulary
+         *
+         */
         const response = yield call(api.get, endpoint.VOCABULARY(payload));
-        console.log("getVocabularyWorker response", response);
+        // console.log("getVocabularyWorker response", response);
         yield put({ type: SET_VOCABULARY, payload: response.data });
         yield put({ type: SET_LOADED_TRUE })
     } catch (error) {
@@ -79,33 +101,43 @@ function* postTagWorker({ payload }) {
     yield put({ type: SET_LOADING_ON })
     yield put({ type: SET_LOADED_FALSE })
     try {
+        /*
+         * GET csrf token
+         *
+         */
+        const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
+        // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
+        /*
+         * POST new tag
+         *
+         */
+        const response = yield call(api.post, endpoint.POST_TAG, payload, csrf_token.data);
+        // console.group("postTagWorker call api.post response", response);
 
-        // POST new tag
-        const response = yield call(api.post, endpoint.POST_TAG, payload);
-        console.group("postTagWorker call api.post response", response);
-
-        // GET fresh vocabulary
+        /*
+         * GET Vocabulary (store.articlePost.vocabulary)
+         *
+         */
         const vocabulary = yield call(api.get, endpoint.VOCABULARY('tags'));
         // console.log(".get(VOCABULARY('tags')).data", vocabulary.data);
         yield putResolve({ type: SET_VOCABULARY, payload: vocabulary.data })
 
-        // ADD to selected
+        /*
+         * add new tag to selected tags (store.articlePost.selected)
+         *
+         */
         const name = payload.data.attributes.name;
         const id = vocabulary.data.data.find(item => {
             return item.name === name
         })
         const body = { value: id.id, label: name }
-        // console.log("payload", payload)
-        // console.log("name", name);
-        // console.log("vocabulary", vocabulary);
-        // console.log("id", id)
         console.log("body", body);
         yield put({ type: ADD_SELECTED, payload: body });
-
-        // ADD to article tags
-        // const tags = body.map(x => tagPostBodyitem(x.value));
+        /*
+         * add new tag to post form data (store.articlePost.tags)
+         *
+         */
         const tags = { "type": "taxonomy_term--tags", "id": id.id }
-        // console.log("tags", tags)
         yield put({ type: ADD_ARTICLE_TAGS, payload: tags });
 
         yield put({ type: SET_LOADED_TRUE })

@@ -39,7 +39,5 @@ function* getArticleWorker({ payload }) {
 export default function* root() {
     yield all([
         takeLatest(GET_ARTICLE, getArticleWorker),
-        // takeLatest(POST_ARTICLE, postArticleWorker),
-        // takeLatest(POST_ARTICLE_FILE, postArticleFileWorker),
     ]);
 }

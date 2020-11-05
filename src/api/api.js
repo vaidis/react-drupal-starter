@@ -5,13 +5,11 @@ export const getCsrfToken = async () => {
     const csrf_token = await axios(endpoint.CSRF_TOKEN)
         .then(response => response.data)
         .catch((error) => {
-            // console.log("API getCsrfToken() error: ", error)
             if (error.message === undefined) {
                 error.message = "Connection Timeout"
             }
             throw new Error(error)
         });
-    // console.log("getCsrfToken() token: ", csrf_token)
     return csrf_token
 }
 
@@ -59,16 +57,19 @@ export const api = {
                 });
         }
     },
-    post: async function post(url, data) {
-
-        const csrf_token = await getCsrfToken()
-
+    post: async function post(url, data, csrf_token) {
+        /**
+         * logged users use her own csrf token
+         * they get it from login POST response
+         * is stored in store.user.csrf_token
+         */
+        const token = csrf_token ? csrf_token : await getCsrfToken()
         const options = {
             url: url,
             method: 'post',
             headers: {
                 "Content-Type": "application/vnd.api+json",
-                "X-CSRF-Token": csrf_token,
+                "X-CSRF-Token": token,
             },
             withCredentials: true,
             timeout: 2000,
@@ -84,17 +85,16 @@ export const api = {
                 throw new Error("Conection time out");
             });
     },
-    postFile: async function postFile(url, file, data) {
+    postFile: async function postFile(url, file, data, csrf_token) {
 
-        const csrf_token = await getCsrfToken()
-
+        const token = csrf_token ? csrf_token : await getCsrfToken()
         const options = {
             url: url,
             method: 'post',
             headers: {
                 "Accept": "application/vnd.api+json",
                 "Content-Type": "application/octet-stream",
-                "X-CSRF-Token": csrf_token,
+                "X-CSRF-Token": token,
                 "Content-Disposition": "file; filename=\"" + file + "\"",
                 "Accept-Encoding": "gzip, deflate, br",
                 "Accept-Language": "en-US,en;q=0.9",
