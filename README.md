@@ -2,7 +2,17 @@
 
 A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 
-## What this front-end can do
+
+## :floppy_disk:  Installation
+```
+git clone https://stevaidis.mywire.org:4080/ste/react-drupal-starter.git
+cd react-drupal-starter
+npm install
+npm start
+```
+
+
+## :gear: What it does
 1. Front page - List of articles links with:
     - Fields: Title, Image, Tags
     - Pager
@@ -17,13 +27,13 @@ A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
     - Body
     - Tags (with auto-complete and create new tags)
 
-## What this front-end use
+## :hammer_and_wrench: What is using
 
-#### react
+### react
 
 Functional components with a few hooks
 
-### redux
+### react-redux
 
 - `store.api`: isLoading, browser url parameters, pager data
 - `store.user`: Drupal response to POST login
@@ -32,7 +42,7 @@ Functional components with a few hooks
 - `store.articlePost`: Form data for POST new article
 
 
-### saga
+### react-saga
 Cocmmunicate with the api.js
 
 - `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
@@ -47,25 +57,26 @@ Cocmmunicate with the api.js
 
   After every POST_TAG the saga worker will:
   1. referesh the local vocabulary with GET_VOCABULARY action
-  2. add new tag to selected from user  tags with ADD_SELECTED action
+  2. add the new tag to selected tags with ADD_SELECTED action
 
-### router
-- Header menu
-- Hide 'New Article' menu item from non authenticated users
-- Protecting the 'article/create/ router from non authenticated users
-
-Routes
-
-|  Cocmponent       | Path                                                         |
-| ----------------- |------------------------------------------------------------- |
-| `<Articles />`    | /<br>/?offset=2<br>/?terms=myterm<br>/?terms=myterm&offset=2 |
-| `<Article  />`    | /article/my article	                                         |
-| `<UserLogin />`   | /user/login                                                  |
-| `<ArticlePost />` | /article/create                                              |
+### react-router-dom
 
 
+|  Component       | Path                                                         | Permisions |
+| ----------------- |------------------------------------------------------------- |----------- |
+| `<Articles />`    | /<br>/?offset=2<br>/?terms=myterm<br>/?terms=myterm&offset=2 | public     |
+| `<Article  />`    | /article/my article	                                       | public     |
+| `<UserLogin />`   | /user/login                                                  | public     |
+| `<ArticlePost />` | /article/create                                              | protected  |
 
-## Debuging
+#### Protected
+##### Menu
+The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non -authenticated users
+##### Path
+The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from protected routes to /user/login
+
+
+## :beetle: Debuging
 - Uncomment `console.log` comments in the code
 - Install the redux browser extention for [chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/)
 - Get the postman collection: [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json)
@@ -76,10 +87,14 @@ Routes
 
 
 
-## Configure Drupal Backend
+# Drupal Backend
 
-### Installation
+### :floppy_disk: Installation
 ./anew.sh mybackend
+
+### :hammer_and_wrench: Configure
+
+
 
 ### Generate Content
 1. Make image field required
@@ -90,7 +105,7 @@ http://192.168.56.101/admin/config/development/generate/content
 
 
 
-## Test Drupal Endpoints
+##  :beetle: Test Drupal Endpoints
 
 #### GET CSRF Token
 Non authenticated users recieve a different one every time they GET request
@@ -195,14 +210,6 @@ curl --location --request POST 'http://192.168.56.101/jsonapi/node/article' \
 }'
 ```
 
-
-## Installation
-```
-git clone https://stevaidis.mywire.org:4080/ste/react-drupal-starter.git
-cd react-drupal-starter
-npm install
-npm start
-```
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
