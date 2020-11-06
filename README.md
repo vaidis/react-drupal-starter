@@ -46,9 +46,9 @@ Cocmmunicate with the api.js
     - GET_VOCABULARY
     and POST the action.payload.
 
-  After every POST_TAG the saga worker will:
-    1. referesh the local vocabulary with GET_VOCABULARY action
-    2. add new tag to selected from user  tags with ADD_SELECTED action
+After every POST_TAG the saga worker will:
+1. referesh the local vocabulary with GET_VOCABULARY action
+2. add new tag to selected from user  tags with ADD_SELECTED action
 
 ### router
 - Header menu
