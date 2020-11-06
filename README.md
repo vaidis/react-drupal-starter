@@ -125,11 +125,12 @@ The `anew.sh` script will install for follwing contributed Modules
 - `jsonapi_include`: merge include and relationship data (nodes with images and tags)
 - `jsonapi_image_styles`: exposes image style urls
 - `fieldable_path`: get article by url alias
+- `pager_serializer`: provide the pager links
 
 Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
-```
+``` 
 -  const SIZE_MAX = 50;
 +  const SIZE_MAX = 999;
 ```
