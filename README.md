@@ -48,10 +48,10 @@ Functional components with a few hooks
 
 ### react-saga
 
-- `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
-- `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
-- `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
-- `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
+- `userLoginWatcher`: listens for USER_LOGIN_REQUEST action and POST the payload
+- `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST actionand and POST the action.logout_token
+- `articlesWatcher`: listen for GET_ARTICLES action, fetch articles, dispatch SET_ARTICLES
+- `articleWatcher`: listen for GET_ARTICLE action, fetch article, dispatch SET_ARTICLE
 - `articlePostWatcher`: listen for actions and POST the action.payload:
     - POST_ARTICLE
     - POST_ARTICLE_FILE
