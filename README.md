@@ -24,11 +24,17 @@ A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 Functional components with a few hooks
 
 ### redux
+
 `store.api`: isLoading, browser url parameters, pager data
+
 `store.user`: Drupal response to POST login
+
 `store.article`: Drupal response to GET a single article
+
 `store.articles`: Drupal response to GET list of articles
+
 `store.articlePost`: Form data for POST new article
+
 
 ### saga
 Cocmmunicate with the api.js
