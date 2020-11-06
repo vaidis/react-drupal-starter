@@ -138,14 +138,14 @@ Drupal 8 has a fixed page limit that can be change at:
 #### Path alias settings
 http://localhost/admin/config/search/path/patterns
 
-Article
+New Pattern: Article
 - Pattern Type: Content
 - Path pattern: `article/[node:title]`
 - Content type: Article
 - Label: Article
 - Enabled: [x]
 
-Tags
+New Pattern: Tags
 - Pattern Type: taxonomy term
 - Path pattern: `term/[term:name]`
 - Vocabulary: [tags]
