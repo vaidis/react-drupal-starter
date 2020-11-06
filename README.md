@@ -112,6 +112,7 @@ The script will:
 - install contributed modules
 - enable  contributed modules
 - create manager/1234 user
+- create a directory with the new site at `/var/www/react-drupal-backend`
 
 The `anew.sh` script will install for follwing contributed Modules
 - `devel`: usefull for `devel_generate` sub module to generate some demo articles
