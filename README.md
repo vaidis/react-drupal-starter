@@ -12,7 +12,7 @@ npm start
 ```
 
 
-## :construction: What it does
+## :doughnut:: What it does
 1. Front page - List of articles links with:
     - Fields: Title, Image, Tags
     - Pager
@@ -27,7 +27,7 @@ npm start
     - Body
     - Tags (with auto-complete and create new tags)
 
-## :hammer_and_wrench: What is using
+## :wrench: What is using
 
 ### react
 
