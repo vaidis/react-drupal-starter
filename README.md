@@ -40,9 +40,13 @@ Functional components with a few hooks
 Cocmmunicate with the api.js
 
  `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
+
  `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
+
  `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
+
  `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
+
  `articlePostWatcher`: listen for actions:
     - POST_ARTICLE
     - POST_ARTICLE_FILE
