@@ -44,7 +44,7 @@ Cocmmunicate with the api.js
     and POST the action.payload.
 
 
-    [!] After every POST_TAG the saga worker will :
+    [ ! ] After every POST_TAG the saga worker will :
     1. referesh the local vocabulary with GET_VOCABULARY action
     2. add new tag to selected tags with ADD_SELECTED action
 
