@@ -92,7 +92,7 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 ### :floppy_disk: Installation
 ./anew.sh mybackend
 
-### :hammer_and_wrench: Configure
+### :wrench: Configure
 
 
 
