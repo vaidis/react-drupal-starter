@@ -16,8 +16,8 @@ Runs the app in the development mode. Open [http://localhost:3000](http://localh
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
-## :doughnut:: What it does
-1. Front page - List of articles links with:
+## :doughnut: What it does
+1. Front page - List of article links with:
     - Fields: Title, Image, Tags
     - Pager
     - Tag filter
@@ -27,7 +27,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     - Logout button
 4. Post article form with fieds:
     - Title
-    - image (Drah and Drop )
+    - image (Drag and Drop )
     - Body
     - Tags (with auto-complete and create new tags)
 
@@ -58,7 +58,7 @@ Functional components with a few hooks
     - POST_TAG
     - GET_VOCABULARY
 
-  After every POST_TAG the saga worker will:
+  After the user creates a new tag, they expect to be  included already in the selected tags, so after every POST_TAG the saga worker will:
   1. referesh the `store.articlePost.vocabulary` dispatching the GET_VOCABULARY action
   2. add the new tag to selected tags at `store.articlePost.selected` dispatching the  ADD_SELECTED action
 
@@ -74,9 +74,9 @@ Functional components with a few hooks
 
 
 ##### Protected Menu
-The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non -authenticated users
+The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non-authenticated users
 ##### Protected Path
-The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from protected routes to /user/login
+The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from the protected routes to /user/login
 
 
 ## :beetle: Debuging
@@ -201,7 +201,9 @@ we get the response
 ```
 In react this object is stored in redux `store.user`
 
-#### Logout
+#### GET user status
+
+#### POST Logout
 
 
 
