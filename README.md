@@ -48,11 +48,18 @@ Cocmmunicate with the api.js
  `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
 
  `articlePostWatcher`: listen for actions:
-    - POST_ARTICLE
-    - POST_ARTICLE_FILE
-    - POST_TAG
-    - GET_VOCABULARY
+
+ dsdsds
+
+
+ 
+
+    POST_ARTICLE
+    POST_ARTICLE_FILE
+    POST_TAG
+    GET_VOCABULARY
     and POST the action.payload.
+
 
   After every POST_TAG the saga worker will:
     1. referesh the local vocabulary with GET_VOCABULARY action
