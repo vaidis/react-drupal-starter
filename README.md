@@ -171,8 +171,8 @@ http://localhost/admin/config/development/generate/content
 You can download the postman collection [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json) or use the curl from the console
 
 #### GET CSRF Token
-Non authenticated users recieve a different one every time they GET response
-Authenticated users get the same that already have stored from the POST Login reqponse
+- Non authenticated users recieve a different one every time they GET response
+- Authenticated users get the same that already have stored from the POST Login reqponse
 ```
 curl --location --request GET 'http://localhost/session/token'
 ```
