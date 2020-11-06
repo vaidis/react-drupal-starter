@@ -135,7 +135,7 @@ Drupal 8 has a fixed page limit that can be change at:
 
 ### :wrench: Configure
 
-#### Path alias settings
+#### 1. Path alias settings
 http://localhost/admin/config/search/path/patterns
 
 New Pattern: Article
@@ -152,7 +152,7 @@ New Pattern: Tags
 - Label: Term
 - Enabled: [x]
 
-#### Article Node Settings
+#### 2. Article Node Settings
 http://localhost/admin/structure/types/manage/article
 - Preview before submittings: `[Disable]`
 - Fields
@@ -162,7 +162,7 @@ http://localhost/admin/structure/types/manage/article
   4. Path `field_path` (set as required)
   5. Tags `field_tags` (set as required for the work of the `devel_generate`)
 
-#### Generate content
+#### 3. Generate content
 http://localhost/admin/config/development/generate/content
 
 
