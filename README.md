@@ -72,7 +72,7 @@ Functional components with a few hooks
 | `<ArticlePost />` | /article/create                                              | protected  |
 
 
-##### Protected Menu
+##### Protected Menu Items
 The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non-authenticated users
 ##### Protected Path
 The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from the protected routes to /user/login
