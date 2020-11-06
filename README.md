@@ -173,6 +173,7 @@ You can download the postman collection [react-drupal-starter.postman_collection
 #### GET CSRF Token
 - Non authenticated users recieve a different one every time they GET response
 - Authenticated users get the same that already have stored from the POST Login reqponse
+
 ```
 curl --location --request GET 'http://localhost/session/token'
 ```
