@@ -3,19 +3,19 @@
 A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 
 ## What this front-end can do
-1. Front page with list of articles links with:
-    - fields: Title, Image, Tags
-    - pager
-    - tag filter
+1. Front page - List of articles links with:
+    - Fields: Title, Image, Tags
+    - Pager
+    - Tag filter
 2. Article page
 3. Authenticate user
     - Login form
     - Logout button
-4. Post article form without validation with fieds:
+4. Post article form with fieds:
     - Title
-    - Drah and Drop image
+    - image (Drah and Drop )
     - Body
-    - Tags with auto-complete and create new tags
+    - Tags (with auto-complete and create new tags)
 
 ## What this front-end use
 
@@ -39,16 +39,15 @@ Cocmmunicate with the api.js
 - `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
 - `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
 - `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
-- `articlePostWatcher`: listen for actions:
+- `articlePostWatcher`: listen for actions and POST the action.payload:
     - POST_ARTICLE
     - POST_ARTICLE_FILE
     - POST_TAG
     - GET_VOCABULARY
-    and POST the action.payload.
 
-After every POST_TAG the saga worker will:
-1. referesh the local vocabulary with GET_VOCABULARY action
-2. add new tag to selected from user  tags with ADD_SELECTED action
+  After every POST_TAG the saga worker will:
+  1. referesh the local vocabulary with GET_VOCABULARY action
+  2. add new tag to selected from user  tags with ADD_SELECTED action
 
 ### router
 - Header menu
