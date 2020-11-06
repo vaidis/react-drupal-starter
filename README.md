@@ -18,24 +18,26 @@ A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
     - Tags with auto-complete and create new tags
 
 ## What this front-end use
+
 #### react
+
 Functional components with a few hooks
 
 ### redux
-- `store.api`: isLoading, POST and GET responces, browser url parameters, pager data
-- `store.user`: Drupal response to POST login
-- `store.article`: Drupal response to GET a single article
-- `store.articles`: Drupal response to GET list of articles
-- `store.articlePost`: Form data for POST new article
+`store.api`: isLoading, browser url parameters, pager data
+`store.user`: Drupal response to POST login
+`store.article`: Drupal response to GET a single article
+`store.articles`: Drupal response to GET list of articles
+`store.articlePost`: Form data for POST new article
 
 ### saga
 Cocmmunicate with the api.js
 
-- `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
-- `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
-- `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
-- `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
-- `articlePostWatcher`: listen for actions:
+ `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
+ `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
+ `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
+ `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
+ `articlePostWatcher`: listen for actions:
     - POST_ARTICLE
     - POST_ARTICLE_FILE
     - POST_TAG
@@ -62,8 +64,11 @@ Routes
 
 
 
-### debuging
-- ready for the redux browser extention
+## Debuging
+- Uncomment `console.log` comments in the code
+- Install the redux browser extention for [chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/)
+- Get the postman collection: [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json)
+- Have fun
 
 
 
@@ -81,12 +86,6 @@ http://192.168.56.101/admin/structure/types/manage/article/fields/node.article.f
 
 2. Generate Articles
 http://192.168.56.101/admin/config/development/generate/content
-
-### Get Articles
-```
-curl http://192.168.56.101/jsonapi/views/frontpage/page_1
-```
-
 
 
 
@@ -108,12 +107,17 @@ curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?includ
 #### GET articles with tag 'myterm'
 The filter part is `&filter...field_tags.name&filter...myterm`
 ```
-curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags&filter[titleFilter][condition][path]=field_tags.name&filter[titleFilter][condition][value]=myterm'
+curl --location --request GET 'http://192.168.56.101/jsonapi/node/article \
+?include=field_image,field_tags \
+&filter[titleFilter][condition][path]=field_tags.name \
+&filter[titleFilter][condition][value]=myterm'
 ```
 
 #### GET article
 ```
-curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags,uid&filter[field_path][value]=/article/mytitle'
+curl --location --request GET 'http://192.168.56.101/jsonapi/node/article \
+?include=field_image,field_tags,uid \
+&filter[field_path][value]=/article/mytitle'
 ```
 
 
