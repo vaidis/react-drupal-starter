@@ -50,9 +50,10 @@ Cocmmunicate with the api.js
  `articlePostWatcher`: listen for actions:
 
  dsdsds
+ POST_ARTICLE
 
 
- 
+
 
     POST_ARTICLE
     POST_ARTICLE_FILE
