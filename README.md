@@ -50,6 +50,7 @@ Cocmmunicate with the api.js
  `articlePostWatcher`: listen for actions:
 
  POST_ARTICLE
+ POST_ARTICLE
 
 
 
