@@ -94,9 +94,7 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 
 ### :floppy_disk: Installation
 
-You can use the installation script `drupal/anew.sh` to setup a fresh drupal 8 site ready to work with the react front-end
-
-The script is tested on centos 8 with nginx/php-fpm, it uses `composer` and `drush`, and it needs to be run under `/var/www` dir (`/var/www/anew.sh`)
+You can use the installation script `drupal/anew.sh` to setup a fresh drupal 8 site ready to work with the react front-end. The script is tested on centos 8 with nginx/php-fpm, it uses `composer` and `drush`, and it needs to be run under `/var/www` dir (`/var/www/anew.sh`)
 
 For my normal setup on a centos 8 virtualbox machine with nginx/php-fpm, the 
 Composer needed at least 4GB of ram and also a smal swap file to play nice without any problems
