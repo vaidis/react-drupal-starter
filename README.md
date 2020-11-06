@@ -98,6 +98,7 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 ### :wrench: Configure
 
 Contributed Modules
+- `devel`: usefull for `devel_generate` sub module to generate some demo articles
 - `token`: used by `pathauto` module for path alias
 - `pathauto`: you can request article by path alias instead of id
 - `restui`: enable Login, Register, Logout endpoints
@@ -105,6 +106,30 @@ Contributed Modules
 - `jsonapi_include`: merge include and relationship data (nodes with images and tags)
 - `jsonapi_image_styles`: exposes image style urls
 - `fieldable_path`: get article by url alias
+
+page limit fix:
+
+`vi core/modules/jsonapi/src/Query/OffsetPage.php`
+```
+-  const SIZE_MAX = 50;
++  const SIZE_MAX = 999;
+```
+#### Path alias settings
+http://localhost/admin/config/search/path/patterns
+
+Article
+- Pattern Type: Content
+- Path pattern: article/[node:title]
+- Content type: Article
+- Label: Article
+- Enabled: [x]
+
+Tags
+- Pattern Type: taxonomy term
+- Path pattern: term/[term:name]
+- Vocabulary: [tags]
+- Label: Term
+- Enabled: [x]
 
 #### Article Node Settings
 - Preview before submittings: `[Disable]`
@@ -114,52 +139,77 @@ Contributed Modules
     3. Image `field_iamge` (set as required)
     4. Path `field_path` (set as required)
     5. Tags `field_tags` (set as required for the work of the `devel_generate`)
-### Generate Content
-1. Make image field required
-http://192.168.56.101/admin/structure/types/manage/article/fields/node.article.field_image
 
-2. Generate Articles
-http://192.168.56.101/admin/config/development/generate/content
+#### Generate content
+http://localhost/admin/config/development/generate/content
 
 
 
 ##  :beetle: Test Drupal Endpoints
 
 #### GET CSRF Token
-Non authenticated users recieve a different one every time they GET request
+Non authenticated users recieve a different one every time they GET response
 Authenticated users get the same that already have stored from the POST Login reqponse
 ```
-curl --location --request GET 'http://192.168.56.101/session/token'
+curl --location --request GET 'http://localhost/session/token'
 ```
 
 #### GET articles
-The part `?include=field_image,field_tags` needs the jsponapi_include drupal module
+The part `?include=field_image,field_tags` needs the `jsponapi_include` drupal module
 ```
-curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags
+curl --location --request GET 'http://localhost/jsonapi/node/article?include=field_image,field_tags
 ```
 
 #### GET articles with tag 'myterm'
 The filter part is `&filter...field_tags.name&filter...myterm`
 ```
-curl --location --request GET 'http://192.168.56.101/jsonapi/node/article \
+curl --location --request GET 'http://localhost/jsonapi/node/article \
 ?include=field_image,field_tags \
 &filter[titleFilter][condition][path]=field_tags.name \
 &filter[titleFilter][condition][value]=myterm'
 ```
 
 #### GET article
+The filter by `field_path` is done by the `fieldable_path` module
 ```
-curl --location --request GET 'http://192.168.56.101/jsonapi/node/article \
+curl --location --request GET 'http://localhost/jsonapi/node/article \
 ?include=field_image,field_tags,uid \
 &filter[field_path][value]=/article/mytitle'
 ```
 
+#### POST login
+Using the standar cookie authentication
+```
+curl --location --request POST 'http://localhost/user/login?_format=json' \
+--header 'Content-type: application/json' \
+--data-raw '{"name":"admin", "pass":"1234"}'
+```
+we get the response
+```
+{
+    "current_user": {
+        "uid": "1",
+        "roles": [
+            "authenticated",
+            "administrator"
+        ],
+        "name": "admin"
+    },
+    "csrf_token": "YKXBwr_qDlYq2GH_L8RWdauCIDV5GL_eXGxly0sR6Kg",
+    "logout_token": "w5D4blEDudgg0F3a51xLKXvE0NztsEBigVjNBMqK1BM"
+}
+```
+In react this object is stored in redux `store.user`
+
+#### Logout
+
+
 
 #### POST image
-The `react-dropzone-uploader` needs a patch to include `xhr.withCredentials = true`
+The `react-dropzone-uploader` library needs a patch to include `xhr.withCredentials = true`
 
 ```
-curl --location --request POST 'http://192.168.56.101/jsonapi/node/article/field_image' \
+curl --location --request POST 'http://localhost/jsonapi/node/article/field_image' \
 --header 'Accept: application/vnd.api+json' \
 --header 'Content-Type: application/octet-stream' \
 --header 'X-CSRF-Token: QtqRwdIdCxl2rPZezdUAelvTzghLQjF_pm3xb7j8_LI' \
@@ -173,7 +223,7 @@ curl --location --request POST 'http://192.168.56.101/jsonapi/node/article/field
 #### POST tag
 The user can create new tags in the same input with `<CreatableSelect ... />` from `react-select`
 ```
-curl --location --request POST 'http://192.168.56.101/jsonapi/taxonomy_term/tags' \
+curl --location --request POST 'http://localhost/jsonapi/taxonomy_term/tags' \
 --header 'Content-Type: application/vnd.api+json' \
 --header 'Accept: application/vnd.api+json' \
 --header 'Authorization: Basic YWRtaW46MTIzNA==' \
@@ -191,7 +241,7 @@ curl --location --request POST 'http://192.168.56.101/jsonapi/taxonomy_term/tags
 
 #### POST article with image and tag
 ```
-curl --location --request POST 'http://192.168.56.101/jsonapi/node/article' \
+curl --location --request POST 'http://localhost/jsonapi/node/article' \
 --header 'Content-Type: application/vnd.api+json' \
 --header 'X-CSRF-Token: ab9GUlrf7UfccnaNKSmicMF60N0TcVzoWupcA3UBv7c' \
 --data-raw '{
