@@ -93,11 +93,30 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 # Drupal Backend
 
 ### :floppy_disk: Installation
-./anew.sh mybackend
 
-### :wrench: Configure
+You can use the installation script `drupal/anew.sh` to setup a fresh drupal 8 site ready to work with the react front-end
 
-Contributed Modules
+The script is tested on centos 8 with nginx/php-fpm, it uses `composer` and `drush`, and it needs to be run under `/var/www` dir (`/var/www/anew.sh`)
+
+For my normal setup on a centos 8 virtualbox machine with nginx/php-fpm, the 
+Composer needed at least 4GB of ram and also a smal swap file to play nice without any problems
+
+```
+cp drupal/anew.sh /var/www
+cd /var/www
+./anew.sh react-drupal-backend
+```
+
+The script will:
+- use the composer to install a fresh drush 8
+- create settings.php and services.php
+- create a database
+- set filesystem permissions
+- install contributed modules
+- enable  contributed modules
+- create manager/1234 user
+
+The `anew.sh` script will install for follwing contributed Modules
 - `devel`: usefull for `devel_generate` sub module to generate some demo articles
 - `token`: used by `pathauto` module for path alias
 - `pathauto`: you can request article by path alias instead of id
@@ -107,31 +126,35 @@ Contributed Modules
 - `jsonapi_image_styles`: exposes image style urls
 - `fieldable_path`: get article by url alias
 
-page limit fix:
+Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
 ```
 -  const SIZE_MAX = 50;
 +  const SIZE_MAX = 999;
 ```
+
+### :wrench: Configure
+
 #### Path alias settings
 http://localhost/admin/config/search/path/patterns
 
 Article
 - Pattern Type: Content
-- Path pattern: article/[node:title]
+- Path pattern: `article/[node:title]`
 - Content type: Article
 - Label: Article
 - Enabled: [x]
 
 Tags
 - Pattern Type: taxonomy term
-- Path pattern: term/[term:name]
+- Path pattern: `term/[term:name]`
 - Vocabulary: [tags]
 - Label: Term
 - Enabled: [x]
 
 #### Article Node Settings
+http://localhost/admin/structure/types/manage/article
 - Preview before submittings: `[Disable]`
 - Fields
     1. Body `body`
