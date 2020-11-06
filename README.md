@@ -11,6 +11,10 @@ npm install
 npm start
 ```
 
+Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## :doughnut:: What it does
 1. Front page - List of articles links with:
@@ -43,7 +47,6 @@ Functional components with a few hooks
 
 
 ### react-saga
-Cocmmunicate with the api.js
 
 - `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
 - `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
@@ -56,8 +59,8 @@ Cocmmunicate with the api.js
     - GET_VOCABULARY
 
   After every POST_TAG the saga worker will:
-  1. referesh the local vocabulary with GET_VOCABULARY action
-  2. add the new tag to selected tags with ADD_SELECTED action
+  1. referesh the `store.articlePost.vocabulary` dispatching the GET_VOCABULARY action
+  2. add the new tag to selected tags at `store.articlePost.selected` dispatching the  ADD_SELECTED action
 
 ### react-router-dom
 
@@ -69,10 +72,10 @@ Cocmmunicate with the api.js
 | `<UserLogin />`   | /user/login                                                  | public     |
 | `<ArticlePost />` | /article/create                                              | protected  |
 
-#### Protected
-##### Menu
+
+##### Protected Menu
 The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non -authenticated users
-##### Path
+##### Protected Path
 The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from protected routes to /user/login
 
 
@@ -94,7 +97,11 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 
 ### :wrench: Configure
 
-
+Contributed Modules
+- restui
+- jsonapi_extras
+- jsonapi_include
+- jsonapi_image_styles
 
 ### Generate Content
 1. Make image field required
@@ -210,11 +217,3 @@ curl --location --request POST 'http://192.168.56.101/jsonapi/node/article' \
 }'
 ```
 
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
