@@ -40,13 +40,11 @@ Cocmmunicate with the api.js
     - POST_ARTICLE_FILE
     - POST_TAG
     - GET_VOCABULARY
-
     and POST the action.payload.
 
-
-    [ ! ] After every POST_TAG the saga worker will :
+  After every POST_TAG the saga worker will:
     1. referesh the local vocabulary with GET_VOCABULARY action
-    2. add new tag to selected tags with ADD_SELECTED action
+    2. add new tag to selected from user  tags with ADD_SELECTED action
 
 ### router
 - Header menu
@@ -55,13 +53,13 @@ Cocmmunicate with the api.js
 
 Routes
 
-- /
-- /?offset=2
-- /?terms=myterm
-- /?terms=myterm&offset=2
-- /article/my article
-- /user/login
-- /article/create
+|  Cocmponent       | Path                                                         |
+| ----------------- |------------------------------------------------------------- |
+| `<Articles />`    | /<br>/?offset=2<br>/?terms=myterm<br>/?terms=myterm&offset=2 |
+| `<Article  />`    | /article/my article	                                         |
+| `<UserLogin />`   | /user/login                                                  |
+| `<ArticlePost />` | /article/create                                              |
+
 
 
 ### debuging
@@ -147,6 +145,45 @@ curl --location --request POST 'http://192.168.56.101/jsonapi/taxonomy_term/tags
 }'
 ```
 
+
+#### POST article with image and tag
+```
+curl --location --request POST 'http://192.168.56.101/jsonapi/node/article' \
+--header 'Content-Type: application/vnd.api+json' \
+--header 'X-CSRF-Token: ab9GUlrf7UfccnaNKSmicMF60N0TcVzoWupcA3UBv7c' \
+--data-raw '{
+    "data": {
+        "type": "node--article",
+            "attributes": {
+            "title": "from postman title with image",
+            "body": {
+                "value": "from postman body",
+                "format": "plain_text"
+            }
+        },
+        "relationships": {
+            "field_image": {
+                "data": {
+                    "type": "file--file",
+                    "id": "a59d672b-07d8-42d4-b716-bb3fb8b565e5",
+                    "meta": {
+                        "alt": "Json Uploaded Testing1",
+                        "title": "Json Uploaded Testing1",
+                        "width": null,
+                        "height": null
+                    }
+                }
+            },
+            "field_tags": {
+                "data": [{
+                    "type": "taxonomy_term--tags",
+                    "id": "fc5fd77d-1672-49fa-97a8-f84af218c90b"
+                }]
+            }
+        }
+    }
+}'
+```
 
 
 ## Installation
