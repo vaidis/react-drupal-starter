@@ -98,7 +98,7 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 ### :wrench: Configure
 
 Contributed Modules
-- `token`: used in path alias `pathauto`
+- `token`: used by `pathauto` module for path alias
 - `pathauto`: you can request article by path alias instead of id
 - `restui`: enable Login, Register, Logout endpoints
 - `jsonapi_extras`: Include count in collection queries
