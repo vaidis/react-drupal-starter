@@ -55,7 +55,7 @@ Functional components with a few hooks
 - `articlePostWatcher`: listen for actions and POST the action.payload:
     - POST_ARTICLE
     - POST_ARTICLE_FILE
-    - POST_TAGs
+    - POST_TAG
 
   After the user creates a new tag, he expect this to be included already in the selected tags, so after every POST_TAG the saga worker will:
   1. referesh the `store.articlePost.vocabulary` by dispatching the GET_VOCABULARY action
