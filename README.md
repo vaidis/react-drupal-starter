@@ -156,11 +156,11 @@ New Pattern: Tags
 http://localhost/admin/structure/types/manage/article
 - Preview before submittings: `[Disable]`
 - Fields
-    1. Body `body`
-    2. Comments `comment`
-    3. Image `field_iamge` (set as required)
-    4. Path `field_path` (set as required)
-    5. Tags `field_tags` (set as required for the work of the `devel_generate`)
+  1. Body `body`
+  2. Comments `comment`
+  3. Image `field_iamge` (set as required)
+  4. Path `field_path` (set as required)
+  5. Tags `field_tags` (set as required for the work of the `devel_generate`)
 
 #### Generate content
 http://localhost/admin/config/development/generate/content
