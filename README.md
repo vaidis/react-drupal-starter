@@ -58,9 +58,9 @@ Functional components with a few hooks
     - POST_TAG
     - GET_VOCABULARY
 
-  After the user creates a new tag, they expect to be  included already in the selected tags, so after every POST_TAG the saga worker will:
-  1. referesh the `store.articlePost.vocabulary` dispatching the GET_VOCABULARY action
-  2. add the new tag to selected tags at `store.articlePost.selected` dispatching the  ADD_SELECTED action
+  After the user creates a new tag, he expect to be  included already in the selected tags, so after every POST_TAG the saga worker will:
+  1. referesh the `store.articlePost.vocabulary` by dispatching the GET_VOCABULARY action
+  2. add the new tag to selected tags at `store.articlePost.selected` by dispatching the  ADD_SELECTED action
 
 ### react-router-dom
 
