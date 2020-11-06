@@ -3,9 +3,9 @@
 A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 
 ## What this front-end can do
-1. Front page with list of articles links
-    - with fields: Title, Image, Tags
-    - with pager
+1. Front page with list of articles links with:
+    - fields: Title, Image, Tags
+    - pager
     - tag filter
 2. Article page
 3. Authenticate user
