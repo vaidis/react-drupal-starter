@@ -12,7 +12,7 @@ npm start
 ```
 
 
-## :gear: What it does
+## :construction: What it does
 1. Front page - List of articles links with:
     - Fields: Title, Image, Tags
     - Pager
