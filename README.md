@@ -98,11 +98,22 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 ### :wrench: Configure
 
 Contributed Modules
-- restui
-- jsonapi_extras
-- jsonapi_include
-- jsonapi_image_styles
+- `token`: used in path alias `pathauto`
+- `pathauto`: you can request article by path alias instead of id
+- `restui`: enable Login, Register, Logout endpoints
+- `jsonapi_extras`: Include count in collection queries
+- `jsonapi_include`: merge include and relationship data (nodes with images and tags)
+- `jsonapi_image_styles`: exposes image style urls
+- `fieldable_path`: get article by url alias
 
+#### Article Node Settings
+- Preview before submittings: `[Disable]`
+- Fields
+    1. Body `body`
+    2. Comments `comment`
+    3. Image `field_iamge` (set as required)
+    4. Path `field_path` (set as required)
+    5. Tags `field_tags` (set as required for the work of the `devel_generate`)
 ### Generate Content
 1. Make image field required
 http://192.168.56.101/admin/structure/types/manage/article/fields/node.article.field_image
