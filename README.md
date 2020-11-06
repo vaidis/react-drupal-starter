@@ -25,46 +25,26 @@ Functional components with a few hooks
 
 ### redux
 
-`store.api`: isLoading, browser url parameters, pager data
-
-`store.user`: Drupal response to POST login
-
-`store.article`: Drupal response to GET a single article
-
-`store.articles`: Drupal response to GET list of articles
-
-`store.articlePost`: Form data for POST new article
+- `store.api`: isLoading, browser url parameters, pager data
+- `store.user`: Drupal response to POST login
+- `store.article`: Drupal response to GET a single article
+- `store.articles`: Drupal response to GET list of articles
+- `store.articlePost`: Form data for POST new article
 
 
 ### saga
 Cocmmunicate with the api.js
 
- `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
-
- `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
-
- `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
-
- `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
-
- `articlePostWatcher`: listen for actions:
-
- POST_ARTICLE
-
- POST_ARTICLE
-
-POST_ARTICLE_FILE
-
-GET_VOCABULARY
-
-
-    POST_ARTICLE
-    POST_ARTICLE_FILE
-    POST_TAG
-    GET_VOCABULARY
-    
+- `userLoginWatcher`: listens for USER_LOGIN_REQUEST and POST the action.payload
+- `userLogoutWatcher`: listens for USER_LOGOUT_REQUEST and POST the logout token
+- `articlesWatcher`: listen for GET_ARTICLES, fetch, execute SET_ARTICLES
+- `articleWatcher`: listen for GET_ARTICLE, fetch, execute SET_ARTICLE
+- `articlePostWatcher`: listen for actions:
+    - POST_ARTICLE
+    - POST_ARTICLE_FILE
+    - POST_TAG
+    - GET_VOCABULARY
     and POST the action.payload.
-
 
   After every POST_TAG the saga worker will:
     1. referesh the local vocabulary with GET_VOCABULARY action
