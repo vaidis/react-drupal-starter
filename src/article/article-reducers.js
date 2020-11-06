@@ -1,21 +1,20 @@
 import {
-    SET_ARTICLE,
+  SET_ARTICLE,
 } from '../common/constants'
 
 const reducer = (state = {
-    article: {
-        data: []
-    }
+  article: {
+    data: []
+  }
 }, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case SET_ARTICLE:
+      console.log("SET_ARTICLE")
+      return action.payload;
 
-        case SET_ARTICLE:
-            console.log("SET_ARTICLE")
-            return action.payload;
-
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
 
 export default reducer;

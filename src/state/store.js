@@ -16,15 +16,15 @@ const persistedState = loadState();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-    IndexReducers,
-    persistedState,
-    composeEnhancers(applyMiddleware(sagaMiddleware)
-    ));
+  IndexReducers,
+  persistedState,
+  composeEnhancers(applyMiddleware(sagaMiddleware)
+  ));
 
 sagaMiddleware.run(IndexSagas)
 
 store.subscribe(() => {
-    window.api = store.getState().api;
+  window.api = store.getState().api;
 
 });
 

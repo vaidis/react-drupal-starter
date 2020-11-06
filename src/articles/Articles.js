@@ -20,12 +20,11 @@ const Articles = ({
   dispatchSetApiUrlParams,
   dispatchGetArticles,
 }) => {
-  //
-  // - get the font-end url params if any
-  // - into urlParams object
-  //   ready for dispatch if needed, in useEffect() bellow
-  //
+
   let query = useQuery();
+    /**
+   * @type {object} urlParams - URL parameters in the browser
+   */
   const urlParams = {
     terms: query.get('terms') || '',
     search: query.get('search') || '',
@@ -36,11 +35,14 @@ const Articles = ({
   }
 
   React.useEffect(() => {
-    //
-    // If the font-end URL params has been change
-    // - update the store.api.urlParams
-    // - and get the new list of articles
-    //
+    /**
+     * If the font-end URL params has been change
+     * update the store.api.urlParams and
+     * get the new list of articles
+     *
+     * @type {object} urlParams - parameter in the browser
+     * @type {object} storeParams - parameter in the redux
+     */
     if (!compareObjects(urlParams, storeParams)) {
       dispatchSetApiUrlParams(urlParams)
       dispatchGetArticles(urlParams)
@@ -59,9 +61,7 @@ const Articles = ({
         !loading && loaded && articles
           ? (
             articles.map((item, i) => {
-              //
-              // get TERMS field
-              //
+
               let terms = ''
               terms = item.field_tags.map((term, i) => {
                 return (
@@ -70,9 +70,7 @@ const Articles = ({
                   </div>
                 )
               })
-              //
-              // get IMAGE field
-              //
+
               let image = ''
               let imageobject = ''
               if (item.field_image.image_style_uri) {
@@ -83,9 +81,7 @@ const Articles = ({
                   }
                 })
               }
-              //
-              // render the article item
-              //
+
               return (
                 <div key={i} style={{ marginBottom: "20px" }}>
                   <Link to={item.path.alias}>
