@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "3e42cff4-7c7b-4a81-b530-e4b66f1aaa23",
+		"name": "react-drupal-starter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CSRF TOKEN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.56.101/session/token",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"session",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ARTICLES",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"jsonapi",
+						"node",
+						"article"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "field_image,field_tags"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ARTICLES with TAG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags&filter[titleFilter][condition][path]=field_tags.name&filter[titleFilter][condition][value]=phu",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"jsonapi",
+						"node",
+						"article"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "field_image,field_tags"
+						},
+						{
+							"key": "filter[titleFilter][condition][path]",
+							"value": "field_tags.name"
+						},
+						{
+							"key": "filter[titleFilter][condition][value]",
+							"value": "phu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"admin\", \"pass\":\"1234\"}"
+				},
+				"url": {
+					"raw": "http://192.168.56.101/user/login?_format=json",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "_format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IMAGE",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream",
+						"type": "text"
+					},
+					{
+						"key": "X-CSRF-Token",
+						"value": "QtqRwdIdCxl2rPZezdUAelvTzghLQjF_pm3xb7j8_LI",
+						"type": "text"
+					},
+					{
+						"key": "Content-Disposition",
+						"value": "file; filename=\"156696.jpg\"",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/home/ste/Pictures/wallpapers/156696.jpg"
+					}
+				},
+				"url": {
+					"raw": "http://192.168.56.101/jsonapi/node/article/field_image",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"jsonapi",
+						"node",
+						"article",
+						"field_image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TAG",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/vnd.api+json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/vnd.api+json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic YWRtaW46MTIzNA=="
+					},
+					{
+						"key": "X-CSRF-Token",
+						"type": "text",
+						"value": "ab9GUlrf7UfccnaNKSmicMF60N0TcVzoWupcA3UBv7c"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"type\": \"taxonomy_term--tags\",\n        \"attributes\": {\n            \"name\": \"latest term\"\n        }\n    }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.56.101/jsonapi/taxonomy_term/tags",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"jsonapi",
+						"taxonomy_term",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ARTICLE wth IMAGE and TAG",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/vnd.api+json"
+					},
+					{
+						"key": "X-CSRF-Token",
+						"type": "text",
+						"value": "ab9GUlrf7UfccnaNKSmicMF60N0TcVzoWupcA3UBv7c"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"type\": \"node--article\",\n            \"attributes\": {\n            \"title\": \"from postman title with image\",\n            \"body\": {\n                \"value\": \"from postman body\",\n                \"format\": \"plain_text\"\n            }\n        },\n        \"relationships\": {\n            \"field_image\": {\n                \"data\": {\n                    \"type\": \"file--file\",\n                    \"id\": \"a59d672b-07d8-42d4-b716-bb3fb8b565e5\",\n                    \"meta\": {\n                        \"alt\": \"Json Uploaded Testing1\",\n                        \"title\": \"Json Uploaded Testing1\",\n                        \"width\": null,\n                        \"height\": null\n                    }\n                }\n            },\n            \"field_tags\": {\n                \"data\": [{\n                    \"type\": \"taxonomy_term--tags\",\n                    \"id\": \"fc5fd77d-1672-49fa-97a8-f84af218c90b\"\n                }]\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://192.168.56.101/jsonapi/node/article",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"56",
+						"101"
+					],
+					"path": [
+						"jsonapi",
+						"node",
+						"article"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
