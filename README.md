@@ -169,6 +169,8 @@ http://localhost/admin/config/development/generate/content
 
 ##  :beetle: Test Drupal Endpoints
 
+You can download the postman collection here or use the curl from console
+
 #### GET CSRF Token
 Non authenticated users recieve a different one every time they GET response
 Authenticated users get the same that already have stored from the POST Login reqponse
