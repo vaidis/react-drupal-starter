@@ -168,7 +168,7 @@ http://localhost/admin/config/development/generate/content
 
 ##  :beetle: Test Drupal Endpoints
 
-You can download the postman collection here or use the curl from console
+You can download the postman collection [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json) or use the curl from the console
 
 #### GET CSRF Token
 Non authenticated users recieve a different one every time they GET response
