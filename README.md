@@ -50,16 +50,19 @@ Cocmmunicate with the api.js
  `articlePostWatcher`: listen for actions:
 
  POST_ARTICLE
- 
+
  POST_ARTICLE
 
+POST_ARTICLE_FILE
 
+GET_VOCABULARY
 
 
     POST_ARTICLE
     POST_ARTICLE_FILE
     POST_TAG
     GET_VOCABULARY
+    
     and POST the action.payload.
 
 
