@@ -111,6 +111,11 @@ The filter part is `&filter...field_tags.name&filter...myterm`
 curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags&filter[titleFilter][condition][path]=field_tags.name&filter[titleFilter][condition][value]=myterm'
 ```
 
+#### GET article
+```
+curl --location --request GET 'http://192.168.56.101/jsonapi/node/article?include=field_image,field_tags,uid&filter[field_path][value]=/article/mytitle'
+```
+
 
 #### POST image
 The `react-dropzone-uploader` needs a patch to include `xhr.withCredentials = true`
