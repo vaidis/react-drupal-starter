@@ -17,7 +17,6 @@ const initialState = {
   },
   csrf_token: '',
   logout_token: '',
-  status: 0
 }
 
 const reducer = (state = initialState, action) => {
