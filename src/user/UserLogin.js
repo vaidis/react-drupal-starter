@@ -6,7 +6,7 @@ import UserProfile from './UserProfile'
 
 const UserLogin = ({ dispatchUserLoginRequest }) => {
 
-  const [name, setName] = React.useState("admin");
+  const [name, setName] = React.useState("manager");
   const [pass, setPass] = React.useState("1234");
 
   const handleSubmit = (e) => {
