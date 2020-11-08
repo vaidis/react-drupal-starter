@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 
 import UserProfile from './UserProfile'
 
-const UserLogin = ({ dispatchUserLoginRequest }) => {
 
+const UserLogin = ({ dispatchUserLoginRequest }) => {
   const [name, setName] = React.useState("manager");
   const [pass, setPass] = React.useState("1234");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = { name: name, pass: pass }
-    console.log("handleSubmit > payload ", payload)
     dispatchUserLoginRequest(payload)
   }
 

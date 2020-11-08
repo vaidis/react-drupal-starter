@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import UserLogout from './UserLogout'
 
+
 const UserLogin = ({ user }) => {
   return (
     <div style={{ fontStyle: "italic" }}>
@@ -20,6 +21,7 @@ const UserLogin = ({ user }) => {
     </div>
   );
 }
+
 
 const mapStateToProps = (state) => ({
   user: state.user.current_user,

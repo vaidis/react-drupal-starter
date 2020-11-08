@@ -59,6 +59,7 @@ const Article = ({
   );
 }
 
+
 const mapDispatchToProps = dispatch => ({
   dispatchGetArticle: path => dispatch(getArticle(path)),
 })

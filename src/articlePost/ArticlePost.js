@@ -17,6 +17,7 @@ import {
 import * as endpoint from '../api/endpoints'
 import 'react-dropzone-uploader/dist/styles.css'
 
+
 const ArticlePost = ({
   loaded,
   loading,
@@ -268,6 +269,7 @@ const ArticlePost = ({
     </div>
   )
 }
+
 
 const mapDispatchToProps = dispatch => ({
   dispatchPostArticle: payload => dispatch(postArticle(payload)),

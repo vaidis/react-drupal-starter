@@ -8,6 +8,7 @@ import { setApiUrlParams } from '../api/api-actions'
 import { compareObjects } from '../utils/compareObjects'
 import Pager from '../pager/Pager'
 
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -20,10 +21,9 @@ const Articles = ({
   dispatchSetApiUrlParams,
   dispatchGetArticles,
 }) => {
-
   let query = useQuery();
 
-    /**
+   /**
    * @type {object} urlParams - URL parameters in the browser
    */
   const urlParams = {
@@ -106,6 +106,7 @@ const Articles = ({
     </div>
   );
 }
+
 
 const mapStateToProps = (state) => ({
   loading: state.api.loading,

@@ -127,13 +127,22 @@ The script will install for follwing contributed Modules
 - `fieldable_path`: get article by url alias
 - `pager_serializer`: provide the pager links
 
-Drupal 8 has a fixed page limit that can be change at:
+: warning: Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
 
 ```
 -  const SIZE_MAX = 50;
 +  const SIZE_MAX = 999;
+```
+
+: warning: NGINX need the following setting in config:
+
+```
+        location @rewrite {
+          - rewrite ^/(.*)$ /index.php?q=$1;
+          + rewrite ^/(.*)$ /index.php?query_string last;
+        }
 ```
 
 The project tested with versions:
@@ -143,14 +152,6 @@ The project tested with versions:
 - PHP 7.4.12
 - NGINX 1.16.1
 
-NGINX may need the following setting in config:
-
-```
-        location @rewrite {
-          + rewrite ^/(.*)$ /index.php?query_string last;
-          - rewrite ^/(.*)$ /index.php?q=$1;
-        }
-```
 
 ### :wrench: Configure
 

@@ -32,7 +32,7 @@ function* postArticleWorker({ payload }) {
     const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
     // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
     const response = yield call(api.post, endpoint.ARTICLE_POST, payload, csrf_token.data);
-    // console.group("postArticleWorker response", response);
+    console.group("postArticleWorker response", response);
     yield put({ type: SET_LOADED_TRUE })
   } catch (error) {
     console.log("postArticleWorker error", error);

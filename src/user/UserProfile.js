@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+
 const UserProfile = ({ user }) => {
   return (
     <div>
@@ -14,6 +15,7 @@ const UserProfile = ({ user }) => {
   );
 }
 
+``
 const mapStateToProps = (state) => ({
   user: state.user,
 })

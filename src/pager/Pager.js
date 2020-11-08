@@ -6,6 +6,14 @@ const Pager = ({
   pager,
   urlParams,
 }) => {
+  /**
+   * get the pager numbers from store.api.pager
+   * get the urls settings from state.api.urlParams
+   * and return the pager
+   *
+   * @param {object} pager - {next: 8, last: 10}
+   * @param {object} urlParams - {limit: 2, offet: 6}
+   */
   return (
     <div>
       <button type="button" disabled={!pager.first}>

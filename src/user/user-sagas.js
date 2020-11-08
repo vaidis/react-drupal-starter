@@ -50,7 +50,6 @@ function* UserLogoutWorker() {
       logout_token: state.user.logout_token,
       csrf_token: state.user.csrf_token,
     }
-
     yield call(api.logout, endpoint.LOGOUT, tokens);
     yield put({ type: USER_LOGOUT_SUCCESS });
   } catch (error) {
@@ -60,7 +59,6 @@ function* UserLogoutWorker() {
     yield put({ type: SET_LOADING_OFF })
   }
 }
-
 
 
 export function* userLoginWatcher() {
