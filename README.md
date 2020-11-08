@@ -105,6 +105,7 @@ cd /var/www
 ```
 
 The script will:
+
 - use the composer to install a fresh drush 8
 - create settings.php and services.php
 - create a database
@@ -115,6 +116,7 @@ The script will:
 - create a directory with the new site at `/var/www/react-drupal-backend`
 
 The script will install for follwing contributed Modules
+
 - `devel`: usefull for `devel_generate` sub module to generate some demo articles
 - `token`: used by `pathauto` module for path alias
 - `pathauto`: you can request article by path alias instead of id
@@ -128,12 +130,16 @@ The script will install for follwing contributed Modules
 Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
+
 ```
 -  const SIZE_MAX = 50;
 +  const SIZE_MAX = 999;
 ```
+
 The project tested with versions:
 - Drupal 8.9.8
+- Drush 10
+- Composer 1.10.13
 - PHP 7.4.12
 - NGINX 1.16.1
 
