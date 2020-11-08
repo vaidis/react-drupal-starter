@@ -15,7 +15,7 @@ const UserProfile = ({ user }) => {
   );
 }
 
-``
+
 const mapStateToProps = (state) => ({
   user: state.user,
 })
