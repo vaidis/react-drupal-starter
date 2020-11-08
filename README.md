@@ -78,15 +78,16 @@ The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to h
 
 The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from the protected routes to /user/login
 
-:warning: FIX: CORS for Drag and Drop image input field
-
-For the `react-dropzone-uploader` to work with Drupal authentication cookies there is a usefull patch which [Add withCredentials property to support CORS requests](https://github.com/fortana-co/react-dropzone-uploader/pull/49/commits/38184675592ee7be5b409dbb1da30c639f3b4e41). For a quick test you can overwrite the working library files with the patched files from `/fix/react-dropzone-uploader/dist`
-
 ## :beetle: Debuging
 
 - Install the redux browser extention for [chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/)
 - Get the postman collection: [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json)
 - Have fun
+
+:warning: FIX: CORS for Drag and Drop image input field
+
+For the `react-dropzone-uploader` to work with Drupal authentication cookies there is a usefull patch which [Add withCredentials property to support CORS requests](https://github.com/fortana-co/react-dropzone-uploader/pull/49/commits/38184675592ee7be5b409dbb1da30c639f3b4e41). For a quick test you can overwrite the working library files with the patched files from `/fix/react-dropzone-uploader/dist`
+
 
 # Drupal Backend
 
