@@ -90,9 +90,6 @@ For the `react-dropzone-uploader` to work with Drupal authentication cookies the
 
 
 
-
-
-
 # Drupal Backend
 
 ### :floppy_disk: Installation
@@ -131,10 +128,14 @@ The script will install for follwing contributed Modules
 Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
-``` 
+```
 -  const SIZE_MAX = 50;
 +  const SIZE_MAX = 999;
 ```
+The project tested with versions:
+- Drupal 8.9.8
+- PHP 7.4.12
+- NGINX 1.16.1
 
 ### :wrench: Configure
 
