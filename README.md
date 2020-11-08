@@ -134,7 +134,7 @@ The script will install for follwing contributed Modules
 +  const SIZE_MAX = 999;
 ```
 
-: warning: NGINX need the following setting in config:
+:warning: NGINX need the following setting in config:
 
 ```
         location @rewrite {
