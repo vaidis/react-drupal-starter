@@ -10,7 +10,6 @@ import history from "./state/history";
 import './index.css';
 import App from './App';
 
-
 store.subscribe(() => {
   saveState({
     store: store.getState()

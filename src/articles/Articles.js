@@ -22,6 +22,7 @@ const Articles = ({
 }) => {
 
   let query = useQuery();
+
     /**
    * @type {object} urlParams - URL parameters in the browser
    */
@@ -36,7 +37,7 @@ const Articles = ({
 
   React.useEffect(() => {
     /**
-     * If the font-end URL params has been change
+     * If the browser URL params has been change
      * update the store.api.urlParams and
      * get the new list of articles
      *
@@ -54,6 +55,8 @@ const Articles = ({
     storeParams,
   ]);
 
+  console.log("Articles", articles)
+
   return (
     <div>
       <p>{urlParams.terms !== '' && "articles with terms: " + urlParams.terms}</p>
@@ -62,6 +65,8 @@ const Articles = ({
           ? (
             articles.map((item, i) => {
 
+              /** terms */
+              console.log("item.field_tags", item.field_tags)
               let terms = ''
               terms = item.field_tags.map((term, i) => {
                 return (
@@ -71,6 +76,7 @@ const Articles = ({
                 )
               })
 
+              /** image */
               let image = ''
               let imageobject = ''
               if (item.field_image.image_style_uri) {
@@ -82,6 +88,7 @@ const Articles = ({
                 })
               }
 
+              /** article */
               return (
                 <div key={i} style={{ marginBottom: "20px" }}>
                   <Link to={item.path.alias}>

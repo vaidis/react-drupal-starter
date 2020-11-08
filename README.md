@@ -143,6 +143,15 @@ The project tested with versions:
 - PHP 7.4.12
 - NGINX 1.16.1
 
+NGINX may need the following setting in config:
+
+```
+        location @rewrite {
+          + rewrite ^/(.*)$ /index.php?query_string last;
+          - rewrite ^/(.*)$ /index.php?q=$1;
+        }
+```
+
 ### :wrench: Configure
 
 #### 1. Path alias settings

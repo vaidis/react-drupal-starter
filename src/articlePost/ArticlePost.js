@@ -17,8 +17,6 @@ import {
 import * as endpoint from '../api/endpoints'
 import 'react-dropzone-uploader/dist/styles.css'
 
-
-
 const ArticlePost = ({
   loaded,
   loading,
@@ -39,19 +37,8 @@ const ArticlePost = ({
   csrf_token,
 }) => {
 
+  /** used by the react-dropzone-uploader for the image field */
   const [error_upload, setErrorUpload] = React.useState('');
-
-  /**
-   *
-   * @param {obj} obj
-   */
-  Object.size = function (obj) {
-    var size = 0, key;
-    for (key in obj) {
-      if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
-  };
 
   const handleSumbitForm = (e) => {
     e.preventDefault();
@@ -93,8 +80,8 @@ const ArticlePost = ({
     // console.log('dispatchPostArticle payload', payload)
 
     /**
-     * Dispatch the POST_ARTICLE action that starts the
-     * saga postArticleWorker that POST the article
+     * Dispatch the POST_ARTICLE action that triggers the
+     * saga postArticleWorker to POST the article
      *
      * @param {object} payload - the POST request body
      */
@@ -126,7 +113,7 @@ const ArticlePost = ({
 
   /**
    * react-dropzone-uploader POST response
-   * Gets the id of the new image stored in backend
+   * Gets the id of the new image just stored in backend
    * api: https://github.com/fortana-co/react-dropzone-uploader/blob/8603b1892f568ef14f35ace5596c3f5b4b6381d3/docs/api.md
    *
    * @param {object} xhr - The fetcher
@@ -146,6 +133,10 @@ const ArticlePost = ({
           if (result.hasOwnProperty('errors')) {
             status[0].remove()
             setErrorUpload(fileWithMeta)
+            /**
+             * for some reason, the fileWithMeta gives the data of status
+             * and the status gives the data of the fileWithMeta
+             */
             // console.log("handleChangeStatus status", status);
             // console.log("xhr.response fileWithMeta", fileWithMeta);
             // console.log("xhr.response status[0].remove", status[0].remove);
@@ -158,6 +149,7 @@ const ArticlePost = ({
   }
 
   React.useEffect(() => {
+    /** get a fresh vocabulary to fill the react-select options list */
     dispatchGetVocabulary('tags')
   }, [
     dispatchGetVocabulary,
@@ -170,11 +162,12 @@ const ArticlePost = ({
   }
 
   /**
-   * called from react-select
-   * save selected values to store.articlePost.tags
+   * called from react-select when a tag added or removed
+   * save all selected values to store.articlePost.tags
    *
    * @param {string[]} value - term name
    *     [{"value":"00d9f5ee-9121-46c3","label":"some tag"}]
+   * @dispatch {string[]} ids - the selected terms
    */
   const handleSelectOnChange = (value) => {
     console.log("handleSelectOnChange value", JSON.stringify(value))
@@ -188,17 +181,15 @@ const ArticlePost = ({
       dispatchSetArticleTags(ids)
     }
   }
+
   /**
+   * called from react-select when post a new tag
    *
    * @param {string} name - The name of the tag
+   * @dispatch {object} body - The body of POST request
    */
   const handleSelectOnCreate = (name) => {
     // console.group('handleSelectOnCreate', name);
-
-    /**
-     *
-     * @type {object} body - The body of the POST request
-     */
     const body = {
       "data": {
         "type": "taxonomy_term--tags",
@@ -272,7 +263,6 @@ const ArticlePost = ({
           <div><strong>store.articlePost.body:</strong> {JSON.stringify(body)}</div><br />
           <div><strong>store.articlePost.tags:</strong> {JSON.stringify(tags)}</div><br />
           <div><strong>store.articlePost.selected:</strong> {JSON.stringify(selected)}</div><br />
-          <div><strong>store.articlePost.vocabulary.lenght:</strong> {JSON.stringify(Object.size(vocabulary))}</div>
         </code>
       </div>
     </div>
