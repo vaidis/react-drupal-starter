@@ -2,7 +2,6 @@
 
 A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 
-
 ## :floppy_disk:  Installation
 ```
 git clone https://stevaidis.mywire.org:4080/ste/react-drupal-starter.git
@@ -15,8 +14,8 @@ Runs the app in the development mode. Open [http://localhost:3000](http://localh
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-
 ## :doughnut: What it does
+
 1. Front page - List of article links with:
     - Fields: Title, Image, Tags
     - Pager
@@ -63,7 +62,6 @@ Functional components with a few hooks
 
 ### react-router-dom
 
-
 |  Component       | Path                                                         | Permisions |
 | ----------------- |------------------------------------------------------------- |----------- |
 | `<Articles />`    | /<br>/?offset=2<br>/?terms=myterm<br>/?terms=myterm&offset=2 | public     |
@@ -73,22 +71,22 @@ Functional components with a few hooks
 
 
 ##### Protected Menu Item
+
 The component `/header/Menu.js` uses the `/header/LinkPrivate.js` component to hide the protected `<Link />` from non-authenticated users
+
 ##### Protected Path
+
 The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticated users from the protected routes to /user/login
 
-
 #### :warning: Drag and Drop image input field
+
 For the `react-dropzone-uploader` to work with Drupal authentication cookies there is a usefull patch which [Add withCredentials property to support CORS requests](https://github.com/fortana-co/react-dropzone-uploader/pull/49/commits/38184675592ee7be5b409dbb1da30c639f3b4e41). For a quick test you can overwrite the working library files with the patched files from `/fix/react-dropzone-uploader/dist`
 
-
 ## :beetle: Debuging
-- Uncomment `console.log` comments in the code
+
 - Install the redux browser extention for [chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) or [firefox](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/)
 - Get the postman collection: [react-drupal-starter.postman_collection.json](https://stevaidis.mywire.org:4080/ste/react-drupal-starter/src/branch/master/drupal/react-drupal-starter.postman_collection.json)
 - Have fun
-
-
 
 # Drupal Backend
 
