@@ -79,7 +79,7 @@ The `App.js` uses the `/utils/RouteProtected.js` to redirect the non-authenticat
 
 
 #### :warning: Drag and Drop image input field
-For the `react-dropzone-uploader`to work with Drupal there is a usefull patch which: [Add withCredentials property to support CORS requests](https://github.com/fortana-co/react-dropzone-uploader/pull/49/commits/38184675592ee7be5b409dbb1da30c639f3b4e41) for a quick test you can overwrite the library files with the patched from `/fix/react-dropzone-uploader/dist`
+For the `react-dropzone-uploader` to work with Drupal authentication cookies there is a usefull patch which [Add withCredentials property to support CORS requests](https://github.com/fortana-co/react-dropzone-uploader/pull/49/commits/38184675592ee7be5b409dbb1da30c639f3b4e41). For a quick test you can overwrite the working library files with the patched files from `/fix/react-dropzone-uploader/dist`
 
 
 ## :beetle: Debuging
