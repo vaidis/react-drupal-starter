@@ -50,7 +50,7 @@ function* postArticleFileWorker({ payload }) {
     const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
     // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
     const response = yield call(api.postFile, endpoint.ARTICLE_POST_FILE, payload, csrf_token.data);
-    // console.group("postArticleFileWorker response", response);
+    console.group("postArticleFileWorker response", response);
     yield put({ type: SET_LOADED_TRUE })
   } catch (error) {
     console.log("postArticleWorker error", error);
@@ -84,7 +84,7 @@ function* postTagWorker({ payload }) {
     const csrf_token = yield call(api.get, endpoint.CSRF_TOKEN);
     // console.group("postTagWorker call api.get csrf_token", csrf_token.data);
     const response = yield call(api.post, endpoint.POST_TAG, payload, csrf_token.data);
-    // console.group("postTagWorker call api.post response", response);
+    console.group("postTagWorker call api.post response", response);
 
     const vocabulary = yield call(api.get, endpoint.VOCABULARY('tags'));
     // console.log(".get(VOCABULARY('tags')).data", vocabulary.data);
