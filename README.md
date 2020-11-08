@@ -243,16 +243,13 @@ we get the response
     "logout_token": "w5D4blEDudgg0F3a51xLKXvE0NztsEBigVjNBMqK1BM"
 }
 ```
-In react this object is stored in redux `store.user`
+this object is stored in redux `store.user`
 
 #### GET user status
 
 #### POST Logout
 
-
-
 #### POST image
-The `react-dropzone-uploader` library needs a patch to include `xhr.withCredentials = true`
 
 ```
 curl --location --request POST 'http://localhost/jsonapi/node/article/field_image' \
