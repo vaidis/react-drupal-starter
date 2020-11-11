@@ -62,7 +62,7 @@ Functional components with a few hooks
 
 ### react-router-dom
 
-|  Component       | Path                                                         | Permisions |
+|  Component        | Path                                                         | Permisions |
 | ----------------- |------------------------------------------------------------- |----------- |
 | `<Articles />`    | /<br>/?offset=2<br>/?terms=myterm<br>/?terms=myterm&offset=2 | public     |
 | `<Article  />`    | /article/my article	                                       | public     |
@@ -126,7 +126,7 @@ The script will install for follwing contributed Modules
 - `fieldable_path`: get article by url alias
 - `pager_serializer`: provide the pager links
 
-: warning: Drupal 8 has a fixed page limit that can be change at:
+:warning: Drupal 8 has a fixed page limit that can be change at:
 
 `vi core/modules/jsonapi/src/Query/OffsetPage.php`
 
