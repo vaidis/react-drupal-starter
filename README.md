@@ -2,6 +2,8 @@
 
 A simple react-redux-saga front-end for Drupal 8 with jsonapi module enabled
 
+![Alt text](https://github.com/vaidis/react-drupal-starter/blob/master/react-drupal-starter.png?raw=true)
+
 ## :floppy_disk:  Installation
 ```
 git clone https://stevaidis.mywire.org:4080/ste/react-drupal-starter.git
